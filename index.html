@@ -3,10 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/<unique-path>/script.js"></script>
 <title>Summer Fest 2026 — Activity Planner</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;800;900&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
@@ -282,7 +278,7 @@
         <div class="filter-section">
           <div class="filter-title">🔍 แสดงเฉพาะ:</div>
           <div class="filter-options" id="activityFilters">
-            <span class="filter-chip clear" onclick="setActivityFilter('')">ทั้งหมด</span>
+            <span class="filter-chip clear active" data-act="" onclick="setActivityFilter('')">ทั้งหมด</span>
             <span class="filter-chip act-merch" data-act="merch" onclick="setActivityFilter('merch')">Merchandise</span>
             <span class="filter-chip act-hachi" data-act="hachi" onclick="setActivityFilter('hachi')">Hachi Cha</span>
             <span class="filter-chip act-hub" data-act="hub" onclick="setActivityFilter('hub')">ฮับขวัญ</span>
@@ -299,6 +295,10 @@
         <div class="panel-title">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           สรุปค่าใช้จ่าย
+        </div>
+        <!-- ปุ่มรีเซ็ตข้อมูลทั้งหมด -->
+        <div style="margin-bottom: 12px;">
+          <button class="quick-btn" style="background:rgba(251,113,133,0.2); color:#fb7185; border-color:rgba(251,113,133,0.3);" onclick="resetAllData()">⟲ รีเซ็ตข้อมูลทั้งหมด</button>
         </div>
         <div id="budgetSummaryContent">
           <div class="no-selection" style="padding:22px 10px">
@@ -712,6 +712,27 @@ function toggleDS(id,chevId){
 }
 
 // ============================================================
+// RESET ALL DATA
+// ============================================================
+function resetAllData() {
+  if (confirm('คุณแน่ใจหรือไม่ที่จะรีเซ็ตข้อมูลทั้งหมด? การเลือกสมาชิกและ tickets จะถูกล้าง')) {
+    selectedMembers.clear();
+    tickets = {};
+    activityFilter = '';
+    // อัปเดต active class ของ filter chips
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.classList.remove('active');
+      if (chip.classList.contains('clear')) chip.classList.add('active');
+    });
+    saveCookie();
+    renderMemberList();
+    renderSchedule();
+    updateBudgetBar();
+    renderBudgetSummary();
+  }
+}
+
+// ============================================================
 // BUBBLES
 // ============================================================
 function createBubbles(){
@@ -862,5 +883,9 @@ renderSchedule();
 updateBudgetBar();
 renderBudgetSummary();
 </script>
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/<unique-path>/script.js"></script>
 </body>
 </html>
