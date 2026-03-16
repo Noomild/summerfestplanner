@@ -7,446 +7,189 @@
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;800;900&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --sky: #7dd3fc;
-    --ocean: #0369a1;
-    --deep: #082f49;
-    --coral: #fb7185;
-    --mint: #34d399;
-    --yellow: #fbbf24;
-    --lavender: #a78bfa;
-    --white: #f0f9ff;
-    --card-bg: rgba(255,255,255,0.12);
-    --card-border: rgba(255,255,255,0.25);
+    --sky: #7dd3fc; --coral: #fb7185; --mint: #34d399;
+    --yellow: #fbbf24; --lavender: #a78bfa; --white: #f0f9ff;
+    --card-bg: rgba(255,255,255,0.10); --card-border: rgba(255,255,255,0.20);
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { margin:0; padding:0; box-sizing:border-box; }
   body {
     font-family: 'Sarabun', sans-serif;
-    background: linear-gradient(135deg, #0c1445 0%, #0a3166 30%, #0e5a82 60%, #1a7a8a 100%);
-    min-height: 100vh;
-    color: var(--white);
-    overflow-x: hidden;
+    background: linear-gradient(135deg,#0c1445 0%,#0a3166 30%,#0e5a82 60%,#1a7a8a 100%);
+    min-height:100vh; color:var(--white); overflow-x:hidden;
   }
-
-  /* Floating bubbles background */
-  .bubbles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
+  .bubbles { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
   .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), rgba(125,211,252,0.1));
-    border: 1px solid rgba(255,255,255,0.15);
-    animation: floatBubble linear infinite;
+    position:absolute; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.3),rgba(125,211,252,0.08));
+    border:1px solid rgba(255,255,255,0.12); animation:floatBubble linear infinite;
   }
-
   @keyframes floatBubble {
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 0.6; }
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    0%{transform:translateY(110vh) rotate(0deg);opacity:0} 10%{opacity:1} 90%{opacity:0.5}
+    100%{transform:translateY(-10vh) rotate(360deg);opacity:0}
   }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px 16px 60px;
-  }
-
-  /* Header */
-  .header {
-    text-align: center;
-    padding: 32px 0 28px;
-    animation: fadeDown 0.7s ease both;
-  }
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  .container { position:relative; z-index:1; max-width:1160px; margin:0 auto; padding:20px 14px 80px; }
+  .header { text-align:center; padding:28px 0 20px; animation:fadeDown .7s ease both; }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
   .header-badge {
-    display: inline-block;
-    background: linear-gradient(90deg, var(--coral), var(--lavender));
-    font-family: 'Kanit', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 5px 16px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-    color: white;
+    display:inline-block; background:linear-gradient(90deg,var(--coral),var(--lavender));
+    font-family:'Kanit',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px;
+    text-transform:uppercase; padding:5px 16px; border-radius:20px; margin-bottom:10px; color:#fff;
   }
-
   .header h1 {
-    font-family: 'Kanit', sans-serif;
-    font-size: clamp(28px, 6vw, 54px);
-    font-weight: 900;
-    line-height: 1.05;
-    background: linear-gradient(135deg, #fff 0%, var(--sky) 50%, var(--mint) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 30px rgba(125,211,252,0.4));
+    font-family:'Kanit',sans-serif; font-size:clamp(26px,6vw,50px); font-weight:900; line-height:1.05;
+    background:linear-gradient(135deg,#fff 0%,var(--sky) 50%,var(--mint) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    filter:drop-shadow(0 0 28px rgba(125,211,252,0.4));
   }
-
-  .header-sub {
-    margin-top: 8px;
-    font-size: 14px;
-    color: rgba(255,255,255,0.65);
-    font-weight: 300;
-    letter-spacing: 0.5px;
-  }
-
-  /* Day Tabs */
-  .day-tabs {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 24px 0 20px;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  .header-sub { margin-top:6px; font-size:13px; color:rgba(255,255,255,0.6); font-weight:300; }
+  .day-tabs { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:20px 0 18px; animation:fadeUp .6s .2s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
   .day-tab {
-    font-family: 'Kanit', sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    padding: 8px 20px;
-    border-radius: 30px;
-    border: 2px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.07);
-    color: rgba(255,255,255,0.7);
-    cursor: pointer;
-    transition: all 0.25s ease;
-    letter-spacing: 0.5px;
+    font-family:'Kanit',sans-serif; font-weight:600; font-size:13px; padding:8px 20px;
+    border-radius:30px; border:2px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.07);
+    color:rgba(255,255,255,0.7); cursor:pointer; transition:all .22s;
   }
-  .day-tab:hover { background: rgba(255,255,255,0.15); color: white; }
+  .day-tab:hover { background:rgba(255,255,255,0.15); color:#fff; }
   .day-tab.active {
-    background: linear-gradient(135deg, var(--coral), var(--lavender));
-    border-color: transparent;
-    color: white;
-    box-shadow: 0 4px 20px rgba(251,113,133,0.4);
+    background:linear-gradient(135deg,var(--coral),var(--lavender));
+    border-color:transparent; color:#fff; box-shadow:0 4px 18px rgba(251,113,133,0.45);
   }
-
-  /* Main layout */
-  .main-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 16px;
-    animation: fadeUp 0.6s 0.35s ease both;
-  }
-
-  @media (max-width: 720px) {
-    .main-layout { grid-template-columns: 1fr; }
-  }
-
-  /* Panel card */
+  .main-layout { display:grid; grid-template-columns:270px 1fr; gap:14px; animation:fadeUp .6s .32s ease both; }
+  @media(max-width:740px){ .main-layout{grid-template-columns:1fr} }
   .panel {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(16px);
-    border-radius: 20px;
-    padding: 20px;
+    background:var(--card-bg); border:1px solid var(--card-border);
+    backdrop-filter:blur(18px); border-radius:20px; padding:18px;
   }
-
   .panel-title {
-    font-family: 'Kanit', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--sky);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-family:'Kanit',sans-serif; font-size:14px; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; color:var(--sky); margin-bottom:12px; display:flex; align-items:center; gap:8px;
   }
-  .panel-title svg { flex-shrink: 0; }
-
-  /* Member search */
   .search-box {
-    width: 100%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 10px;
-    padding: 8px 12px;
-    color: white;
-    font-family: 'Sarabun', sans-serif;
-    font-size: 13px;
-    margin-bottom: 12px;
-    outline: none;
-    transition: border-color 0.2s;
+    width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2);
+    border-radius:10px; padding:8px 12px; color:#fff; font-family:'Sarabun',sans-serif;
+    font-size:13px; margin-bottom:10px; outline:none; transition:border-color .2s;
   }
-  .search-box::placeholder { color: rgba(255,255,255,0.4); }
-  .search-box:focus { border-color: var(--sky); }
-
-  /* Member list */
-  .member-list {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-height: 560px;
-    overflow-y: auto;
-    padding-right: 4px;
-  }
-  .member-list::-webkit-scrollbar { width: 4px; }
-  .member-list::-webkit-scrollbar-track { background: transparent; }
-  .member-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-
-  .member-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 7px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.15s;
-    user-select: none;
-  }
-  .member-item:hover { background: rgba(255,255,255,0.08); }
-  .member-item.checked { background: rgba(125,211,252,0.12); }
-
-  .member-item input[type="checkbox"] { display: none; }
-  .checkmark {
-    width: 18px; height: 18px;
-    border-radius: 5px;
-    border: 2px solid rgba(255,255,255,0.3);
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    background: transparent;
-  }
-  .member-item.checked .checkmark {
-    background: linear-gradient(135deg, var(--sky), var(--mint));
-    border-color: transparent;
-  }
-  .checkmark svg { display: none; }
-  .member-item.checked .checkmark svg { display: block; }
-
-  .member-name {
-    font-family: 'Kanit', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.85);
-  }
-  .member-item.checked .member-name { color: white; }
-
-  .member-count-dot {
-    margin-left: auto;
-    font-size: 10px;
-    font-weight: 700;
-    font-family: 'Kanit', sans-serif;
-    background: rgba(125,211,252,0.2);
-    color: var(--sky);
-    padding: 1px 6px;
-    border-radius: 10px;
-  }
-
-  /* Quick actions */
-  .quick-actions {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 12px;
-  }
+  .search-box::placeholder { color:rgba(255,255,255,0.4); }
+  .search-box:focus { border-color:var(--sky); }
+  .quick-actions { display:flex; gap:6px; margin-bottom:10px; }
   .quick-btn {
-    flex: 1;
-    font-family: 'Kanit', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 5px 8px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.7);
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
+    flex:1; font-family:'Kanit',sans-serif; font-size:11px; font-weight:600; padding:5px 8px;
+    border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.06);
+    color:rgba(255,255,255,0.7); cursor:pointer; transition:all .2s; text-align:center;
   }
-  .quick-btn:hover { background: rgba(255,255,255,0.14); color: white; }
+  .quick-btn:hover { background:rgba(255,255,255,0.14); color:#fff; }
+  .member-list {
+    display:flex; flex-direction:column; gap:4px;
+    max-height:420px; overflow-y:auto; padding-right:4px;
+  }
+  .member-list::-webkit-scrollbar{width:4px}
+  .member-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:4px}
+  .member-item {
+    display:flex; align-items:center; gap:8px; padding:6px 10px;
+    border-radius:10px; cursor:pointer; transition:background .13s; user-select:none;
+  }
+  .member-item:hover{background:rgba(255,255,255,0.08)}
+  .member-item.checked{background:rgba(125,211,252,0.12)}
+  .checkmark {
+    width:17px; height:17px; border-radius:5px; border:2px solid rgba(255,255,255,0.3);
+    flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all .18s;
+  }
+  .member-item.checked .checkmark{background:linear-gradient(135deg,var(--sky),var(--mint));border-color:transparent}
+  .checkmark svg{display:none} .member-item.checked .checkmark svg{display:block}
+  .member-name{font-family:'Kanit',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.85);flex:1}
+  .member-item.checked .member-name{color:#fff}
+  .member-count-dot{font-size:10px;font-weight:700;font-family:'Kanit',sans-serif;background:rgba(125,211,252,0.2);color:var(--sky);padding:1px 6px;border-radius:10px}
 
-  /* Schedule panel */
-  .schedule-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .selected-count {
-    font-family: 'Kanit', sans-serif;
-    font-size: 13px;
-    color: rgba(255,255,255,0.55);
-  }
-  .selected-count span {
-    color: var(--mint);
-    font-weight: 700;
-  }
+  /* activity tags */
+  .activity-tag{display:inline-block;font-size:10px;font-family:'Kanit',sans-serif;font-weight:600;padding:2px 7px;border-radius:6px;margin-right:3px;margin-bottom:2px;letter-spacing:.3px}
+  .act-merch{background:rgba(251,191,36,.22);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
+  .act-hachi{background:rgba(251,113,133,.22);color:#fb7185;border:1px solid rgba(251,113,133,.3)}
+  .act-hub{background:rgba(167,139,250,.22);color:#a78bfa;border:1px solid rgba(167,139,250,.3)}
+  .act-shoot{background:rgba(52,211,153,.22);color:#34d399;border:1px solid rgba(52,211,153,.3)}
+  .act-dome{background:rgba(125,211,252,.22);color:#7dd3fc;border:1px solid rgba(125,211,252,.3)}
+  .act-smg{background:rgba(248,113,113,.22);color:#f87171;border:1px solid rgba(248,113,113,.3)}
+  .act-doo{background:rgba(74,222,128,.22);color:#4ade80;border:1px solid rgba(74,222,128,.3)}
+  .act-mai{background:rgba(251,146,60,.22);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
 
-  .no-selection {
-    text-align: center;
-    padding: 60px 20px;
-    color: rgba(255,255,255,0.35);
+  /* right panel budget bar */
+  .budget-bar {
+    background:rgba(8,20,50,.9); backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,255,255,.12);
+    padding:10px 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin:-18px -18px 16px; border-radius:20px 20px 0 0;
   }
-  .no-selection .big-icon { font-size: 48px; margin-bottom: 12px; }
-  .no-selection p { font-family: 'Kanit', sans-serif; font-size: 15px; }
+  .budget-bar-title{font-family:'Kanit',sans-serif;font-size:11px;font-weight:700;color:var(--sky);letter-spacing:1px;text-transform:uppercase}
+  .budget-day-chip{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.07);border-radius:10px;padding:4px 11px;border:1px solid rgba(255,255,255,.12)}
+  .budget-day-label{font-family:'Kanit',sans-serif;font-size:9px;color:rgba(255,255,255,.5);font-weight:600}
+  .budget-day-val{font-family:'Kanit',sans-serif;font-size:13px;font-weight:800;color:var(--yellow)}
+  .budget-total-chip{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(251,113,133,.18));border:1px solid rgba(251,191,36,.3);border-radius:12px;padding:5px 13px}
+  .budget-total-label{font-family:'Kanit',sans-serif;font-size:9px;color:rgba(255,255,255,.6);font-weight:600}
+  .budget-total-val{font-family:'Kanit',sans-serif;font-size:16px;font-weight:900;color:var(--yellow)}
 
-  /* Activity color coding */
-  .activity-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-family: 'Kanit', sans-serif;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 6px;
-    margin-right: 4px;
-    margin-bottom: 2px;
-    letter-spacing: 0.3px;
-  }
-  .act-merch { background: rgba(251,191,36,0.25); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-  .act-hachi { background: rgba(251,113,133,0.25); color: #fb7185; border: 1px solid rgba(251,113,133,0.3); }
-  .act-hub   { background: rgba(167,139,250,0.25); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
-  .act-shoot { background: rgba(52,211,153,0.25); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
-  .act-dome  { background: rgba(125,211,252,0.25); color: #7dd3fc; border: 1px solid rgba(125,211,252,0.3); }
-  .act-smg   { background: rgba(248,113,113,0.25); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
-  .act-doo   { background: rgba(74,222,128,0.25); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
-  .act-mai   { background: rgba(251,146,60,0.25); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+  /* schedule */
+  .schedule-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+  .selected-count{font-family:'Kanit',sans-serif;font-size:13px;color:rgba(255,255,255,.5)}
+  .selected-count span{color:var(--mint);font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+  .summary-strip{background:linear-gradient(135deg,rgba(125,211,252,.1),rgba(167,139,250,.1));border:1px solid rgba(125,211,252,.2);border-radius:14px;padding:11px 15px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .summary-strip-label{font-family:'Kanit',sans-serif;font-size:11px;font-weight:700;color:var(--sky);letter-spacing:1px;text-transform:uppercase;flex-shrink:0}
+  .summary-chips{display:flex;flex-wrap:wrap;gap:4px}
+  .summary-chip{font-family:'Kanit',sans-serif;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;background:linear-gradient(135deg,var(--coral),var(--lavender));color:#fff}
+  .no-selection{text-align:center;padding:48px 20px;color:rgba(255,255,255,.3)}
+  .no-selection .big-icon{font-size:42px;margin-bottom:10px}
+  .no-selection p{font-family:'Kanit',sans-serif;font-size:14px}
+  .day-section-header{font-family:'Kanit',sans-serif;font-size:15px;font-weight:800;color:#fff;letter-spacing:1px;margin:20px 0 10px;padding:8px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(251,113,133,.22),rgba(167,139,250,.22));border-left:4px solid var(--coral)}
+  .time-block{margin-bottom:9px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);transition:transform .13s,box-shadow .13s}
+  .time-block:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(0,0,0,.25)}
+  .time-block-header{display:flex;align-items:center;padding:9px 14px;background:rgba(255,255,255,.06);gap:10px;flex-wrap:wrap}
+  .time-label{font-family:'Kanit',sans-serif;font-weight:700;font-size:13px;color:var(--yellow);white-space:nowrap;min-width:96px}
+  .time-activities-summary{flex:1;display:flex;flex-wrap:wrap;gap:3px}
+  .time-block-body{padding:10px 14px 12px;background:rgba(0,0,0,.14);display:flex;flex-direction:column;gap:8px}
+  .activity-row{display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+  .activity-name-tag{flex-shrink:0;min-width:86px}
+  .activity-members-list{flex:1;display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-width:100px}
+  .member-pill{font-family:'Kanit',sans-serif;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;color:#fff}
+  .pill-highlight{background:linear-gradient(135deg,var(--coral),var(--lavender));box-shadow:0 2px 8px rgba(251,113,133,.3)}
 
-  /* Time slots */
-  .time-block {
-    margin-bottom: 10px;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .time-block:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.25); }
+  /* ticket controls */
+  .ticket-ctrl{display:flex;align-items:center;gap:5px;flex-shrink:0;margin-left:auto}
+  .ticket-btn{width:24px;height:24px;border-radius:7px;border:none;cursor:pointer;font-family:'Kanit',sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;line-height:1}
+  .ticket-btn.minus{background:rgba(251,113,133,.25);color:#fb7185}
+  .ticket-btn.minus:hover{background:rgba(251,113,133,.5)}
+  .ticket-btn.plus{background:rgba(52,211,153,.25);color:#34d399}
+  .ticket-btn.plus:hover{background:rgba(52,211,153,.5)}
+  .ticket-count{font-family:'Kanit',sans-serif;font-size:14px;font-weight:800;color:#fff;min-width:22px;text-align:center}
+  .ticket-hint{font-family:'Kanit',sans-serif;font-size:10px;color:rgba(255,255,255,.4);white-space:nowrap}
+  .ticket-thb{font-family:'Kanit',sans-serif;font-size:11px;font-weight:700;color:var(--yellow);white-space:nowrap;min-width:52px;text-align:right}
 
-  .time-block-header {
-    display: flex;
-    align-items: center;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.06);
-    gap: 10px;
-  }
-  .time-label {
-    font-family: 'Kanit', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--yellow);
-    white-space: nowrap;
-    min-width: 95px;
-  }
-  .time-activities-summary {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-  }
-
-  .time-block-body {
-    padding: 10px 14px 12px;
-    background: rgba(0,0,0,0.15);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .activity-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .activity-name-tag { flex-shrink: 0; width: 90px; }
-  .activity-members-list {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-
-  .member-pill {
-    font-family: 'Kanit', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    color: white;
-  }
-  .pill-highlight {
-    background: linear-gradient(135deg, var(--coral), var(--lavender));
-    box-shadow: 0 2px 8px rgba(251,113,133,0.35);
-  }
-
-  /* Legend */
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-
-  /* Empty state per slot */
-  .empty-slot {
-    padding: 20px;
-    text-align: center;
-    color: rgba(255,255,255,0.3);
-    font-size: 13px;
-  }
-
-  .summary-strip {
-    background: linear-gradient(135deg, rgba(125,211,252,0.12), rgba(167,139,250,0.12));
-    border: 1px solid rgba(125,211,252,0.2);
-    border-radius: 14px;
-    padding: 14px 18px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .summary-strip-label {
-    font-family: 'Kanit', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--sky);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-  .summary-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-  .summary-chip {
-    font-family: 'Kanit', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--coral), var(--lavender));
-    color: white;
-  }
+  /* budget summary panel */
+  .day-summary-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;margin-bottom:9px}
+  .day-summary-header{font-family:'Kanit',sans-serif;font-size:13px;font-weight:700;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.06);cursor:pointer;user-select:none}
+  .dsh-right{display:flex;align-items:center;gap:10px}
+  .dsh-total{font-size:14px;color:var(--yellow)}
+  .dsh-chevron{font-size:11px;transition:transform .2s;color:rgba(255,255,255,.5)}
+  .dsh-chevron.open{transform:rotate(180deg)}
+  .day-summary-body{padding:10px 14px;display:none}
+  .day-summary-body.open{display:block}
+  .summary-table{width:100%;border-collapse:collapse}
+  .summary-table th{font-family:'Kanit',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-align:left;padding:3px 7px;letter-spacing:.5px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .summary-table td{font-family:'Kanit',sans-serif;font-size:12px;padding:5px 7px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:middle}
+  .summary-table tr:last-child td{border-bottom:none}
+  .col-time{color:var(--sky);font-weight:600;white-space:nowrap}
+  .col-tick{color:var(--mint);font-weight:700;text-align:center}
+  .col-thb{color:var(--yellow);font-weight:700;text-align:right}
+  .day-total-row td{border-top:2px solid rgba(255,255,255,.15)!important;font-weight:800;color:var(--yellow)}
+  .grand-total-card{background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(251,113,133,.15));border:2px solid rgba(251,191,36,.35);border-radius:16px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:10px}
+  .gt-label{font-family:'Kanit',sans-serif;font-size:14px;font-weight:700;color:rgba(255,255,255,.85)}
+  .gt-detail{font-family:'Kanit',sans-serif;font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+  .gt-amount{font-family:'Kanit',sans-serif;font-size:26px;font-weight:900;color:var(--yellow);text-shadow:0 0 20px rgba(251,191,36,.4)}
+  .gt-tickets{font-family:'Kanit',sans-serif;font-size:11px;color:var(--mint);font-weight:700}
+  .save-indicator{font-family:'Kanit',sans-serif;font-size:10px;color:var(--mint);text-align:center;padding:4px 0;opacity:0;transition:opacity .3s}
+  .save-indicator.show{opacity:1}
 </style>
 </head>
 <body>
-
 <div class="bubbles" id="bubbles"></div>
-
 <div class="container">
   <div class="header">
     <div class="header-badge">BNK48 × CGM48 × JJ Mall</div>
@@ -458,27 +201,52 @@
     <button class="day-tab active" onclick="setDay('fri')">🌊 FRI 27 MAR</button>
     <button class="day-tab" onclick="setDay('sat')">☀️ SAT 28 MAR</button>
     <button class="day-tab" onclick="setDay('sun')">🌸 SUN 29 MAR</button>
+    <button class="day-tab" onclick="setDay('all')">📅 ทุกวัน</button>
   </div>
 
   <div class="main-layout">
-    <!-- LEFT: Member picker -->
-    <div class="panel">
-      <div class="panel-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        เลือก Member
+    <!-- LEFT -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="panel">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          เลือก Member
+        </div>
+        <input class="search-box" id="memberSearch" placeholder="🔍 ค้นหาชื่อ..." oninput="filterMembers()"/>
+        <div class="quick-actions">
+          <button class="quick-btn" onclick="selectAll()">เลือกทั้งหมด</button>
+          <button class="quick-btn" onclick="clearAll()">ล้าง</button>
+        </div>
+        <div class="member-list" id="memberList"></div>
       </div>
-      <input class="search-box" id="memberSearch" placeholder="🔍 ค้นหาชื่อ member..." oninput="filterMembers()" />
-      <div class="quick-actions">
-        <button class="quick-btn" onclick="selectAll()">เลือกทั้งหมด</button>
-        <button class="quick-btn" onclick="clearAll()">ล้าง</button>
+
+      <div class="panel">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          สรุปค่าใช้จ่าย
+        </div>
+        <div id="budgetSummaryContent">
+          <div class="no-selection" style="padding:22px 10px">
+            <div class="big-icon" style="font-size:30px">🎟️</div>
+            <p style="font-size:12px">กด + เพื่อเพิ่ม Ticket<br>1 ticket = 250 ฿</p>
+          </div>
+        </div>
+        <div class="save-indicator" id="saveIndicator">💾 บันทึกแล้ว</div>
       </div>
-      <div class="member-list" id="memberList"></div>
     </div>
 
-    <!-- RIGHT: Schedule -->
-    <div class="panel">
-      <div class="panel-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <!-- RIGHT -->
+    <div class="panel" style="position:relative;overflow:hidden">
+      <div class="budget-bar">
+        <span class="budget-bar-title">🎟️ งบรวม</span>
+        <div class="budget-day-chip"><span class="budget-day-label">FRI</span><span class="budget-day-val" id="bb-fri">0 ฿</span></div>
+        <div class="budget-day-chip"><span class="budget-day-label">SAT</span><span class="budget-day-val" id="bb-sat">0 ฿</span></div>
+        <div class="budget-day-chip"><span class="budget-day-label">SUN</span><span class="budget-day-val" id="bb-sun">0 ฿</span></div>
+        <div class="budget-total-chip"><span class="budget-total-label">TOTAL</span><span class="budget-total-val" id="bb-total">0 ฿</span></div>
+      </div>
+
+      <div class="panel-title" style="margin-top:4px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         ตารางกิจกรรม
       </div>
 
@@ -494,14 +262,13 @@
       </div>
 
       <div id="summaryStrip" style="display:none" class="summary-strip">
-        <span class="summary-strip-label">เลือกแล้ว</span>
+        <span class="summary-strip-label">Member ที่เลือก</span>
         <div class="summary-chips" id="summaryChips"></div>
       </div>
 
       <div class="schedule-header">
         <div class="selected-count">แสดงกิจกรรมสำหรับ <span id="selCount">0</span> member</div>
       </div>
-
       <div id="scheduleContent"></div>
     </div>
   </div>
@@ -511,421 +278,441 @@
 // ============================================================
 // DATA
 // ============================================================
+const TICKET_PRICE = 250;
+const DAYS = ['fri','sat','sun'];
+const DAY_LABELS = {fri:'FRI 27 MAR',sat:'SAT 28 MAR',sun:'SUN 29 MAR'};
+
 const ACTIVITIES = {
-  merch: { label: 'Merchandise', cls: 'act-merch' },
-  hachi: { label: 'Hachi Cha', cls: 'act-hachi' },
-  hub:   { label: 'ฮับขวัญ', cls: 'act-hub' },
-  shoot: { label: 'Shoot Sisters', cls: 'act-shoot' },
-  dome:  { label: 'โดนนนนตก', cls: 'act-dome' },
-  smg:   { label: 'Shot Me Girls', cls: 'act-smg' },
-  doo:   { label: 'ดูแปลกนะคะ', cls: 'act-doo' },
-  mai:   { label: '(ไม่)พร้อมค่ะ', cls: 'act-mai' },
+  merch:{label:'Merchandise',  defaultTick:1, cls:'act-merch'},
+  hachi:{label:'Hachi Cha',    defaultTick:1, cls:'act-hachi'},
+  hub:  {label:'ฮับขวัญ',      defaultTick:0, cls:'act-hub'},
+  shoot:{label:'Shoot Sisters',defaultTick:1, cls:'act-shoot'},
+  dome: {label:'โดนนนนตก',     defaultTick:2, cls:'act-dome'},
+  smg:  {label:'Shot Me Girls',defaultTick:5, cls:'act-smg'},
+  doo:  {label:'ดูแปลกนะคะ',   defaultTick:1, cls:'act-doo'},
+  mai:  {label:'(ไม่)พร้อมค่ะ', defaultTick:1, cls:'act-mai'},
 };
 
-// All schedule data parsed from images
 const SCHEDULE = {
-  fri: [
-    // Merchandise (11:00-11:45, 13:00-13:45, 15:00-15:45, 17:00-17:45)
-    { time: '11:00-11:45', act: 'merch', members: ['Cartoon','Grape','Lewlew','Tara'] },
-    { time: '13:00-13:45', act: 'merch', members: ['Namphet','Chifa','Inkcha','Punpon'] },
-    { time: '15:00-15:45', act: 'merch', members: ['Khowjow','Mayji','Mail','Rose'] },
-    { time: '17:00-17:45', act: 'merch', members: ['Luksorn','Mint','Mirin','Praew'] },
-    // Hachi Cha
-    { time: '10:00-10:45', act: 'hachi', members: ['Grape','Mail','L'] },
-    { time: '11:00-11:45', act: 'hachi', members: ['Palmmy','Sindy','Else'] },
-    { time: '12:00-12:45', act: 'hachi', members: ['Wawa','Praifa','Namphet'] },
-    { time: '13:00-13:45', act: 'hachi', members: ['Ginna','Nana','Lookked'] },
-    { time: '14:00-14:45', act: 'hachi', members: ['Hoop','Cartoon','Berry'] },
-    { time: '15:00-15:45', act: 'hachi', members: ['Galeya','Arlee','Niya'] },
-    { time: '16:00-16:45', act: 'hachi', members: ['Monet','Praew','Kwan'] },
-    { time: '17:00-17:45', act: 'hachi', members: ['Neen','Marine','Punpon'] },
-    { time: '18:00-18:45', act: 'hachi', members: ['Lingling','Chifa','Hongyok'] },
-    // ฮับขวัญ
-    { time: '10:00-10:45', act: 'hub', members: ['Namphet','Lewlew','Tara'] },
-    { time: '11:00-11:45', act: 'hub', members: ['Chifa','Punpon'] },
-    { time: '15:00-15:45', act: 'hub', members: ['Lewlew','Punpon'] },
-    { time: '16:00-16:45', act: 'hub', members: ['Namphet','Chifa','Tara'] },
-    // Shoot Sisters
-    { time: '10:00-10:45', act: 'shoot', members: ['Proud','Nana','Satangpound'] },
-    { time: '11:00-11:45', act: 'shoot', members: ['Mirin','Jingjing','Nisha'] },
-    { time: '12:00-12:45', act: 'shoot', members: ['Fame','Rose','Valentine'] },
-    { time: '13:00-13:45', act: 'shoot', members: ['Monet','L','Ploen'] },
-    { time: '14:00-14:45', act: 'shoot', members: ['Galeya','Jew','Arlee'] },
-    { time: '15:00-15:45', act: 'shoot', members: ['Blythe','Cartoon','Grape'] },
-    { time: '16:00-16:45', act: 'shoot', members: ['Inkcha','Mail','Mint'] },
-    { time: '17:00-17:45', act: 'shoot', members: ['Wawa','Hongyok','Lewlew'] },
-    { time: '18:00-18:45', act: 'shoot', members: ['Saonoi','Tara','Monet'] },
-    // โดนนนนตก
-    { time: '10:00-10:45', act: 'dome', members: ['Mint','Ginna','Else'] },
-    { time: '11:00-11:45', act: 'dome', members: ['Jew','Niya','Nall'] },
-    { time: '12:00-12:45', act: 'dome', members: ['Hoop','Janry','Punpon'] },
-    { time: '13:00-13:45', act: 'dome', members: ['Fame','Palmmy','Kwan'] },
-    { time: '14:00-14:45', act: 'dome', members: ['Micha','Emmy','Satangpound'] },
-    { time: '15:00-15:45', act: 'dome', members: ['Hoop','Proud','Lingling'] },
-    { time: '16:00-16:45', act: 'dome', members: ['Mayji','Nammonn','Valentine'] },
-    { time: '17:00-17:45', act: 'dome', members: ['Yoghurt','Patt','Ploen'] },
-    { time: '18:00-18:45', act: 'dome', members: ['Sindy','Praifa','Nisha'] },
-    // Shot Me Girls
-    { time: '10:00-10:45', act: 'smg', members: ['Galeya','Hoop','Kwan'] },
-    { time: '11:00-11:45', act: 'smg', members: ['Blythe','Praew','Namphet'] },
-    { time: '12:00-12:45', act: 'smg', members: ['Mayji','Emmy','Chifa'] },
-    { time: '13:00-13:45', act: 'smg', members: ['Janry','Berry','Lewlew'] },
-    { time: '14:00-14:45', act: 'smg', members: ['Monet','Yoghurt','Else'] },
-    { time: '15:00-15:45', act: 'smg', members: ['Luksorn','Jingjing','Hongyok'] },
-    { time: '16:00-16:45', act: 'smg', members: ['Saonoi','Proud','Neen'] },
-    { time: '17:00-17:45', act: 'smg', members: ['Ginna','Nana','Khowjow'] },
-    { time: '18:00-18:45', act: 'smg', members: ['Shenae','Prae','Jew'] },
-    // ดูแปลก
-    { time: '10:00-10:45', act: 'doo', members: ['Emmy','Janry','Mayji'] },
-    { time: '11:00-11:45', act: 'doo', members: ['Mint','Patt','Lookked'] },
-    { time: '12:00-12:45', act: 'doo', members: ['Galeya','Jew','Prae'] },
-    { time: '13:00-13:45', act: 'doo', members: ['Inkcha','Micha','Tara'] },
-    { time: '14:00-14:45', act: 'doo', members: ['Grape','Mail','Mirin'] },
-    { time: '15:00-15:45', act: 'doo', members: ['Shenae','Berry','Nammonn'] },
-    { time: '16:00-16:45', act: 'doo', members: ['Niya','Else','Luksorn'] },
-    { time: '17:00-17:45', act: 'doo', members: ['Palmmy','Sindy','Jingjing'] },
-    { time: '18:00-18:45', act: 'doo', members: ['Khowjow','Rose','Satangpound'] },
-    // (ไม่)พร้อม
-    { time: '10:00-10:45', act: 'mai', members: ['Praew','Wawa','Ploen'] },
-    { time: '11:00-11:45', act: 'mai', members: ['Inkcha','L','Prae'] },
-    { time: '12:00-12:45', act: 'mai', members: ['Cartoon','Shenae','Valentine'] },
-    { time: '13:00-13:45', act: 'mai', members: ['Hoop','Neen','Proud'] },
-    { time: '14:00-14:45', act: 'mai', members: ['Mayji','Rose','Saonoi'] },
-    { time: '15:00-15:45', act: 'mai', members: ['Yoghurt','Micha','Nisha'] },
-    { time: '16:00-16:45', act: 'mai', members: ['Blythe','Patt','Praifa'] },
-    { time: '17:00-17:45', act: 'mai', members: ['Mail','Janry','Lookked'] },
-    { time: '18:00-18:45', act: 'mai', members: ['Arlee','Nammonn','Nall'] },
+  fri:[
+    {time:'11:00-11:45',act:'merch',members:['Cartoon','Grape','Lewlew','Tara']},
+    {time:'13:00-13:45',act:'merch',members:['Namphet','Chifa','Inkcha','Punpon']},
+    {time:'15:00-15:45',act:'merch',members:['Khowjow','Mayji','Mail','Rose']},
+    {time:'17:00-17:45',act:'merch',members:['Luksorn','Mint','Mirin','Praew']},
+    {time:'10:00-10:45',act:'hachi',members:['Grape','Mail','L']},
+    {time:'11:00-11:45',act:'hachi',members:['Palmmy','Sindy','Else']},
+    {time:'12:00-12:45',act:'hachi',members:['Wawa','Praifa','Namphet']},
+    {time:'13:00-13:45',act:'hachi',members:['Ginna','Nana','Lookked']},
+    {time:'14:00-14:45',act:'hachi',members:['Hoop','Cartoon','Berry']},
+    {time:'15:00-15:45',act:'hachi',members:['Galeya','Arlee','Niya']},
+    {time:'16:00-16:45',act:'hachi',members:['Monet','Praew','Kwan']},
+    {time:'17:00-17:45',act:'hachi',members:['Neen','Marine','Punpon']},
+    {time:'18:00-18:45',act:'hachi',members:['Lingling','Chifa','Hongyok']},
+    {time:'10:00-10:45',act:'hub',members:['Namphet','Lewlew','Tara']},
+    {time:'11:00-11:45',act:'hub',members:['Chifa','Punpon']},
+    {time:'15:00-15:45',act:'hub',members:['Lewlew','Punpon']},
+    {time:'16:00-16:45',act:'hub',members:['Namphet','Chifa','Tara']},
+    {time:'10:00-10:45',act:'shoot',members:['Proud','Nana','Satangpound']},
+    {time:'11:00-11:45',act:'shoot',members:['Mirin','Jingjing','Nisha']},
+    {time:'12:00-12:45',act:'shoot',members:['Fame','Rose','Valentine']},
+    {time:'13:00-13:45',act:'shoot',members:['Monet','L','Ploen']},
+    {time:'14:00-14:45',act:'shoot',members:['Galeya','Jew','Arlee']},
+    {time:'15:00-15:45',act:'shoot',members:['Blythe','Cartoon','Grape']},
+    {time:'16:00-16:45',act:'shoot',members:['Inkcha','Mail','Mint']},
+    {time:'17:00-17:45',act:'shoot',members:['Wawa','Hongyok','Lewlew']},
+    {time:'18:00-18:45',act:'shoot',members:['Saonoi','Tara','Monet']},
+    {time:'10:00-10:45',act:'dome',members:['Mint','Ginna','Else']},
+    {time:'11:00-11:45',act:'dome',members:['Jew','Niya','Nall']},
+    {time:'12:00-12:45',act:'dome',members:['Hoop','Janry','Punpon']},
+    {time:'13:00-13:45',act:'dome',members:['Fame','Palmmy','Kwan']},
+    {time:'14:00-14:45',act:'dome',members:['Micha','Emmy','Satangpound']},
+    {time:'15:00-15:45',act:'dome',members:['Hoop','Proud','Lingling']},
+    {time:'16:00-16:45',act:'dome',members:['Mayji','Nammonn','Valentine']},
+    {time:'17:00-17:45',act:'dome',members:['Yoghurt','Patt','Ploen']},
+    {time:'18:00-18:45',act:'dome',members:['Sindy','Praifa','Nisha']},
+    {time:'10:00-10:45',act:'smg',members:['Galeya','Hoop','Kwan']},
+    {time:'11:00-11:45',act:'smg',members:['Blythe','Praew','Namphet']},
+    {time:'12:00-12:45',act:'smg',members:['Mayji','Emmy','Chifa']},
+    {time:'13:00-13:45',act:'smg',members:['Janry','Berry','Lewlew']},
+    {time:'14:00-14:45',act:'smg',members:['Monet','Yoghurt','Else']},
+    {time:'15:00-15:45',act:'smg',members:['Luksorn','Jingjing','Hongyok']},
+    {time:'16:00-16:45',act:'smg',members:['Saonoi','Proud','Neen']},
+    {time:'17:00-17:45',act:'smg',members:['Ginna','Nana','Khowjow']},
+    {time:'18:00-18:45',act:'smg',members:['Shenae','Prae','Jew']},
+    {time:'10:00-10:45',act:'doo',members:['Emmy','Janry','Mayji']},
+    {time:'11:00-11:45',act:'doo',members:['Mint','Patt','Lookked']},
+    {time:'12:00-12:45',act:'doo',members:['Galeya','Jew','Prae']},
+    {time:'13:00-13:45',act:'doo',members:['Inkcha','Micha','Tara']},
+    {time:'14:00-14:45',act:'doo',members:['Grape','Mail','Mirin']},
+    {time:'15:00-15:45',act:'doo',members:['Shenae','Berry','Nammonn']},
+    {time:'16:00-16:45',act:'doo',members:['Niya','Else','Luksorn']},
+    {time:'17:00-17:45',act:'doo',members:['Palmmy','Sindy','Jingjing']},
+    {time:'18:00-18:45',act:'doo',members:['Khowjow','Rose','Satangpound']},
+    {time:'10:00-10:45',act:'mai',members:['Praew','Wawa','Ploen']},
+    {time:'11:00-11:45',act:'mai',members:['Inkcha','L','Prae']},
+    {time:'12:00-12:45',act:'mai',members:['Cartoon','Shenae','Valentine']},
+    {time:'13:00-13:45',act:'mai',members:['Hoop','Neen','Proud']},
+    {time:'14:00-14:45',act:'mai',members:['Mayji','Rose','Saonoi']},
+    {time:'15:00-15:45',act:'mai',members:['Yoghurt','Micha','Nisha']},
+    {time:'16:00-16:45',act:'mai',members:['Blythe','Patt','Praifa']},
+    {time:'17:00-17:45',act:'mai',members:['Mail','Janry','Lookked']},
+    {time:'18:00-18:45',act:'mai',members:['Arlee','Nammonn','Nall']},
   ],
-  sat: [
-    // Merchandise
-    { time: '11:00-11:45', act: 'merch', members: ['Nall','Palmmy','Lingling','Prae'] },
-    { time: '13:00-13:45', act: 'merch', members: ['Else','Hongyok','Satangpound','Kwan'] },
-    { time: '15:00-15:45', act: 'merch', members: ['Galeya','Berry','Praifa','Valentine'] },
-    { time: '17:00-17:45', act: 'merch', members: ['Khaimook','Neen','Proud','Shenae'] },
-    // Hachi Cha
-    { time: '10:00-10:45', act: 'hachi', members: ['Jew','Arlee','Rose'] },
-    { time: '11:00-11:45', act: 'hachi', members: ['Mirin','Emmy','Janry'] },
-    { time: '12:00-12:45', act: 'hachi', members: ['Fame','Micha','Patt'] },
-    { time: '13:00-13:45', act: 'hachi', members: ['Nammonn','Saonoi','Khowjow'] },
-    { time: '14:00-14:45', act: 'hachi', members: ['Yoghurt','Marine','Ploen'] },
-    { time: '15:00-15:45', act: 'hachi', members: ['Blythe','Satangpound','Shenae'] },
-    { time: '16:00-16:45', act: 'hachi', members: ['Khowjow','Sindy','Wawa'] },
-    { time: '17:00-17:45', act: 'hachi', members: ['Valentine','Nisha','Prae'] },
-    { time: '18:00-18:45', act: 'hachi', members: ['Nall','Lewlew','Tara'] },
-    // ฮับขวัญ
-    { time: '10:00-10:45', act: 'hub', members: ['Lewlew','Punpon'] },
-    { time: '11:00-11:45', act: 'hub', members: ['Namphet','Chifa','Tara'] },
-    { time: '15:00-15:45', act: 'hub', members: ['Namphet','Chifa','Tara'] },
-    { time: '16:00-16:45', act: 'hub', members: ['Lewlew','Punpon'] },
-    // Shoot Sisters
-    { time: '10:00-10:45', act: 'shoot', members: ['L','Shenae','Prae'] },
-    { time: '11:00-11:45', act: 'shoot', members: ['Luksorn','Khaimook','Nana'] },
-    { time: '12:00-12:45', act: 'shoot', members: ['Niya','Neen','Punpon'] },
-    { time: '13:00-13:45', act: 'shoot', members: ['Yoghurt','Micha','Praifa'] },
-    { time: '14:00-14:45', act: 'shoot', members: ['Praew','Patt','Lookked'] },
-    { time: '15:00-15:45', act: 'shoot', members: ['Nammonn','Nall','Ginna'] },
-    { time: '16:00-16:45', act: 'shoot', members: ['Berry','Emmy','Janry'] },
-    { time: '17:00-17:45', act: 'shoot', members: ['Grape','Luksorn','Pancake'] },
-    { time: '18:00-18:45', act: 'shoot', members: ['Hoop','Palmmy','Lingling'] },
-    // โดนนนนตก
-    { time: '10:00-10:45', act: 'dome', members: ['Micha','Patt','Sindy'] },
-    { time: '11:00-11:45', act: 'dome', members: ['Nall','Proud','Hongyok'] },
-    { time: '12:00-12:45', act: 'dome', members: ['Khowjow','Berry','Marine'] },
-    { time: '13:00-13:45', act: 'dome', members: ['Blythe','Mirin','Shenae'] },
-    { time: '14:00-14:45', act: 'dome', members: ['Cartoon','Wawa','Prae'] },
-    { time: '15:00-15:45', act: 'dome', members: ['Luksorn','Khaimook','Else'] },
-    { time: '16:00-16:45', act: 'dome', members: ['Rose','Saonoi','Lookked'] },
-    { time: '17:00-17:45', act: 'dome', members: ['Inkcha','Palmmy','Jingjing'] },
-    { time: '18:00-18:45', act: 'dome', members: ['Galeya','Emmy','Chifa'] },
-    // Shot Me Girls
-    { time: '10:00-10:45', act: 'smg', members: ['Cartoon','Praifa','Lookked'] },
-    { time: '11:00-11:45', act: 'smg', members: ['Fame','L','Satangpound'] },
-    { time: '12:00-12:45', act: 'smg', members: ['Inkcha','Sindy','Ploen'] },
-    { time: '13:00-13:45', act: 'smg', members: ['Pancake','Jingjing','Tara'] },
-    { time: '14:00-14:45', act: 'smg', members: ['Mint','Nall','Valentine'] },
-    { time: '15:00-15:45', act: 'smg', members: ['Hoop','Nisha','Yoghurt'] },
-    { time: '16:00-16:45', act: 'smg', members: ['Arlee','Nammonn','Lingling'] },
-    { time: '17:00-17:45', act: 'smg', members: ['Niya','Kwan','Janry'] },
-    { time: '18:00-18:45', act: 'smg', members: ['Punpon','Praew','Blythe'] },
-    // ดูแปลก
-    { time: '10:00-10:45', act: 'doo', members: ['Nall','Valentine','Nisha'] },
-    { time: '11:00-11:45', act: 'doo', members: ['Blythe','Grape','Mail'] },
-    { time: '12:00-12:45', act: 'doo', members: ['Valentine','Proud','L'] },
-    { time: '13:00-13:45', act: 'doo', members: ['Cartoon','Praew','Chifa'] },
-    { time: '14:00-14:45', act: 'doo', members: ['Inkcha','Neen','Lingling'] },
-    { time: '15:00-15:45', act: 'doo', members: ['Jew','Arlee','Kwan'] },
-    { time: '16:00-16:45', act: 'doo', members: ['Hoop','Pancake','Nana'] },
-    { time: '17:00-17:45', act: 'doo', members: ['Ginna','Marine','Praifa'] },
-    { time: '18:00-18:45', act: 'doo', members: ['Hongyok','Ploen','Else'] },
-    // (ไม่)พร้อม
-    { time: '10:00-10:45', act: 'mai', members: ['Khowjow','Lingling','Jingjing'] },
-    { time: '11:00-11:45', act: 'mai', members: ['Mint','Wawa','Kwan'] },
-    { time: '12:00-12:45', act: 'mai', members: ['Luksorn','Khaimook','Else'] },
-    { time: '13:00-13:45', act: 'mai', members: ['Fame','Berry','Namphet'] },
-    { time: '14:00-14:45', act: 'mai', members: ['Pancake','Palmmy','Nana'] },
-    { time: '15:00-15:45', act: 'mai', members: ['Grape','Mail','Mirin'] },
-    { time: '16:00-16:45', act: 'mai', members: ['Praew','Ploen','Neen'] },
-    { time: '17:00-17:45', act: 'mai', members: ['Galeya','Jew','Nall'] },
-    { time: '18:00-18:45', act: 'mai', members: ['Rose','Saonoi','Satangpound'] },
+  sat:[
+    {time:'11:00-11:45',act:'merch',members:['Nall','Palmmy','Lingling','Prae']},
+    {time:'13:00-13:45',act:'merch',members:['Else','Hongyok','Satangpound','Kwan']},
+    {time:'15:00-15:45',act:'merch',members:['Galeya','Berry','Praifa','Valentine']},
+    {time:'17:00-17:45',act:'merch',members:['Khaimook','Neen','Proud','Shenae']},
+    {time:'10:00-10:45',act:'hachi',members:['Jew','Arlee','Rose']},
+    {time:'11:00-11:45',act:'hachi',members:['Mirin','Emmy','Janry']},
+    {time:'12:00-12:45',act:'hachi',members:['Fame','Micha','Patt']},
+    {time:'13:00-13:45',act:'hachi',members:['Nammonn','Saonoi','Khowjow']},
+    {time:'14:00-14:45',act:'hachi',members:['Yoghurt','Marine','Ploen']},
+    {time:'15:00-15:45',act:'hachi',members:['Blythe','Satangpound','Shenae']},
+    {time:'16:00-16:45',act:'hachi',members:['Khowjow','Sindy','Wawa']},
+    {time:'17:00-17:45',act:'hachi',members:['Valentine','Nisha','Prae']},
+    {time:'18:00-18:45',act:'hachi',members:['Nall','Lewlew','Tara']},
+    {time:'10:00-10:45',act:'hub',members:['Lewlew','Punpon']},
+    {time:'11:00-11:45',act:'hub',members:['Namphet','Chifa','Tara']},
+    {time:'15:00-15:45',act:'hub',members:['Namphet','Chifa','Tara']},
+    {time:'16:00-16:45',act:'hub',members:['Lewlew','Punpon']},
+    {time:'10:00-10:45',act:'shoot',members:['L','Shenae','Prae']},
+    {time:'11:00-11:45',act:'shoot',members:['Luksorn','Khaimook','Nana']},
+    {time:'12:00-12:45',act:'shoot',members:['Niya','Neen','Punpon']},
+    {time:'13:00-13:45',act:'shoot',members:['Yoghurt','Micha','Praifa']},
+    {time:'14:00-14:45',act:'shoot',members:['Praew','Patt','Lookked']},
+    {time:'15:00-15:45',act:'shoot',members:['Nammonn','Nall','Ginna']},
+    {time:'16:00-16:45',act:'shoot',members:['Berry','Emmy','Janry']},
+    {time:'17:00-17:45',act:'shoot',members:['Grape','Luksorn','Pancake']},
+    {time:'18:00-18:45',act:'shoot',members:['Hoop','Palmmy','Lingling']},
+    {time:'10:00-10:45',act:'dome',members:['Micha','Patt','Sindy']},
+    {time:'11:00-11:45',act:'dome',members:['Nall','Proud','Hongyok']},
+    {time:'12:00-12:45',act:'dome',members:['Khowjow','Berry','Marine']},
+    {time:'13:00-13:45',act:'dome',members:['Blythe','Mirin','Shenae']},
+    {time:'14:00-14:45',act:'dome',members:['Cartoon','Wawa','Prae']},
+    {time:'15:00-15:45',act:'dome',members:['Luksorn','Khaimook','Else']},
+    {time:'16:00-16:45',act:'dome',members:['Rose','Saonoi','Lookked']},
+    {time:'17:00-17:45',act:'dome',members:['Inkcha','Palmmy','Jingjing']},
+    {time:'18:00-18:45',act:'dome',members:['Galeya','Emmy','Chifa']},
+    {time:'10:00-10:45',act:'smg',members:['Cartoon','Praifa','Lookked']},
+    {time:'11:00-11:45',act:'smg',members:['Fame','L','Satangpound']},
+    {time:'12:00-12:45',act:'smg',members:['Inkcha','Sindy','Ploen']},
+    {time:'13:00-13:45',act:'smg',members:['Pancake','Jingjing','Tara']},
+    {time:'14:00-14:45',act:'smg',members:['Mint','Nall','Valentine']},
+    {time:'15:00-15:45',act:'smg',members:['Hoop','Nisha','Yoghurt']},
+    {time:'16:00-16:45',act:'smg',members:['Arlee','Nammonn','Lingling']},
+    {time:'17:00-17:45',act:'smg',members:['Niya','Kwan','Janry']},
+    {time:'18:00-18:45',act:'smg',members:['Punpon','Praew','Blythe']},
+    {time:'10:00-10:45',act:'doo',members:['Nall','Valentine','Nisha']},
+    {time:'11:00-11:45',act:'doo',members:['Blythe','Grape','Mail']},
+    {time:'12:00-12:45',act:'doo',members:['Valentine','Proud','L']},
+    {time:'13:00-13:45',act:'doo',members:['Cartoon','Praew','Chifa']},
+    {time:'14:00-14:45',act:'doo',members:['Inkcha','Neen','Lingling']},
+    {time:'15:00-15:45',act:'doo',members:['Jew','Arlee','Kwan']},
+    {time:'16:00-16:45',act:'doo',members:['Hoop','Pancake','Nana']},
+    {time:'17:00-17:45',act:'doo',members:['Ginna','Marine','Praifa']},
+    {time:'18:00-18:45',act:'doo',members:['Hongyok','Ploen','Else']},
+    {time:'10:00-10:45',act:'mai',members:['Khowjow','Lingling','Jingjing']},
+    {time:'11:00-11:45',act:'mai',members:['Mint','Wawa','Kwan']},
+    {time:'12:00-12:45',act:'mai',members:['Luksorn','Khaimook','Else']},
+    {time:'13:00-13:45',act:'mai',members:['Fame','Berry','Namphet']},
+    {time:'14:00-14:45',act:'mai',members:['Pancake','Palmmy','Nana']},
+    {time:'15:00-15:45',act:'mai',members:['Grape','Mail','Mirin']},
+    {time:'16:00-16:45',act:'mai',members:['Praew','Ploen','Neen']},
+    {time:'17:00-17:45',act:'mai',members:['Galeya','Jew','Nall']},
+    {time:'18:00-18:45',act:'mai',members:['Rose','Saonoi','Satangpound']},
   ],
-  sun: [
-    // Merchandise
-    { time: '11:00-11:45', act: 'merch', members: ['Chifa','Lewlew','Nana','Nisha'] },
-    { time: '13:00-13:45', act: 'merch', members: ['Fame','Namphet','Tara','Punpon'] },
-    { time: '15:00-15:45', act: 'merch', members: ['Patt','Sindy','Kwan','Ploen'] },
-    { time: '17:00-17:45', act: 'merch', members: ['Wawa','Ginna','Jingjing','Lookked'] },
-    // Hachi Cha
-    { time: '10:00-10:45', act: 'hachi', members: ['Luksorn','Mint','Khowjow'] },
-    { time: '11:00-11:45', act: 'hachi', members: ['Else','Janry','Monet'] },
-    { time: '12:00-12:45', act: 'hachi', members: ['Else','Hongyok','Ginna'] },
-    { time: '13:00-13:45', act: 'hachi', members: ['Patt','Wawa','Satangpound'] },
-    { time: '14:00-14:45', act: 'hachi', members: ['Pancake','Kwan','Nana'] },
-    { time: '15:00-15:45', act: 'hachi', members: ['Mayji','Lookked','Punpon'] },
-    { time: '16:00-16:45', act: 'hachi', members: ['Inkcha','Ploen','Nana'] },
-    { time: '17:00-17:45', act: 'hachi', members: ['Mirin','L','Lewlew'] },
-    // ฮับขวัญ
-    { time: '10:00-10:45', act: 'hub', members: ['Namphet','Chifa','Lewlew'] },
-    { time: '11:00-11:45', act: 'hub', members: ['Tara','Punpon'] },
-    // Shoot Sisters
-    { time: '10:00-10:45', act: 'shoot', members: ['Janry','Marine','Lookked'] },
-    { time: '11:00-11:45', act: 'shoot', members: ['L','Palmmy','Namphet'] },
-    { time: '12:00-12:45', act: 'shoot', members: ['Emmy','Sindy','Shenae'] },
-    { time: '13:00-13:45', act: 'shoot', members: ['Arlee','Khaimook','Prae'] },
-    { time: '14:00-14:45', act: 'shoot', members: ['Luksorn','Mirin','Rose'] },
-    { time: '15:00-15:45', act: 'shoot', members: ['Jew','Nammonn','Lingling'] },
-    { time: '16:00-16:45', act: 'shoot', members: ['Fame','Lewlew','Praifa'] },
-    { time: '17:00-17:45', act: 'shoot', members: ['Cartoon','Mayji','Saonoi'] },
-    // โดนนนนตก
-    { time: '10:00-10:45', act: 'dome', members: ['L','Jingjing','Nisha'] },
-    { time: '11:00-11:45', act: 'dome', members: ['Mayji','Mint','Ginna'] },
-    { time: '12:00-12:45', act: 'dome', members: ['Hoop','Neen','Kwan'] },
-    { time: '13:00-13:45', act: 'dome', members: ['Khowjow','Marine','Lookked'] },
-    { time: '14:00-14:45', act: 'dome', members: ['Yoghurt','Satangpound','Chifa'] },
-    { time: '15:00-15:45', act: 'dome', members: ['Cartoon','Emmy','Tara'] },
-    { time: '16:00-16:45', act: 'dome', members: ['Monet','Berry','Shenae'] },
-    { time: '17:00-17:45', act: 'dome', members: ['Blythe','Hongyok','Nammonn'] },
-    // Shot Me Girls
-    { time: '10:00-10:45', act: 'smg', members: ['Grape','Mail','Mirin'] },
-    { time: '11:00-11:45', act: 'smg', members: ['Rose','Patt','Emmy'] },
-    { time: '12:00-12:45', act: 'smg', members: ['Luksorn','Galeya','Nana'] },
-    { time: '13:00-13:45', act: 'smg', members: ['Marine','Micha','Lingling'] },
-    { time: '14:00-14:45', act: 'smg', members: ['Palmmy','Ploen','Arlee'] },
-    { time: '15:00-15:45', act: 'smg', members: ['Wawa','Prae','Nisha'] },
-    { time: '16:00-16:45', act: 'smg', members: ['Khaimook','Jew','Niya'] },
-    { time: '17:00-17:45', act: 'smg', members: ['Monet','Pancake','Fame'] },
-    // ดูแปลก
-    { time: '10:00-10:45', act: 'doo', members: ['Galeya','Niya','Mayji'] },
-    { time: '11:00-11:45', act: 'doo', members: ['Saonoi','Khaimook','Micha'] },
-    { time: '12:00-12:45', act: 'doo', members: ['Pancake','Jingjing','Praifa'] },
-    { time: '13:00-13:45', act: 'doo', members: ['Marine','Niya','Nisha'] },
-    { time: '14:00-14:45', act: 'doo', members: ['Monet','Praew','Lewlew'] },
-    { time: '15:00-15:45', act: 'doo', members: ['Fame','Neen','Proud'] },
-    { time: '16:00-16:45', act: 'doo', members: ['Blythe','Sindy','Yoghurt'] },
-    { time: '17:00-17:45', act: 'doo', members: ['Inkcha','Punpon','Namphet'] },
-    // (ไม่)พร้อม
-    { time: '10:00-10:45', act: 'mai', members: ['Praew','Saonoi','Hongyok'] },
-    { time: '11:00-11:45', act: 'mai', members: ['Grape','Mail','Pancake'] },
-    { time: '12:00-12:45', act: 'mai', members: ['Mint','Arlee','Proud'] },
-    { time: '13:00-13:45', act: 'mai', members: ['Monet','Nammonn','Valentine'] },
-    { time: '14:00-14:45', act: 'mai', members: ['Hoop','Berry','Jingjing'] },
-    { time: '15:00-15:45', act: 'mai', members: ['Yoghurt','Micha','Ginna'] },
-    { time: '16:00-16:45', act: 'mai', members: ['Khowjow','Marine','Namphet'] },
-    { time: '17:00-17:45', act: 'mai', members: ['Niya','Chifa','Tara'] },
+  sun:[
+    {time:'11:00-11:45',act:'merch',members:['Chifa','Lewlew','Nana','Nisha']},
+    {time:'13:00-13:45',act:'merch',members:['Fame','Namphet','Tara','Punpon']},
+    {time:'15:00-15:45',act:'merch',members:['Patt','Sindy','Kwan','Ploen']},
+    {time:'17:00-17:45',act:'merch',members:['Wawa','Ginna','Jingjing','Lookked']},
+    {time:'10:00-10:45',act:'hachi',members:['Luksorn','Mint','Khowjow']},
+    {time:'11:00-11:45',act:'hachi',members:['Else','Janry','Monet']},
+    {time:'12:00-12:45',act:'hachi',members:['Else','Hongyok','Ginna']},
+    {time:'13:00-13:45',act:'hachi',members:['Patt','Wawa','Satangpound']},
+    {time:'14:00-14:45',act:'hachi',members:['Pancake','Kwan','Nana']},
+    {time:'15:00-15:45',act:'hachi',members:['Mayji','Lookked','Punpon']},
+    {time:'16:00-16:45',act:'hachi',members:['Inkcha','Ploen','Nana']},
+    {time:'17:00-17:45',act:'hachi',members:['Mirin','L','Lewlew']},
+    {time:'10:00-10:45',act:'hub',members:['Namphet','Chifa','Lewlew']},
+    {time:'11:00-11:45',act:'hub',members:['Tara','Punpon']},
+    {time:'10:00-10:45',act:'shoot',members:['Janry','Marine','Lookked']},
+    {time:'11:00-11:45',act:'shoot',members:['L','Palmmy','Namphet']},
+    {time:'12:00-12:45',act:'shoot',members:['Emmy','Sindy','Shenae']},
+    {time:'13:00-13:45',act:'shoot',members:['Arlee','Khaimook','Prae']},
+    {time:'14:00-14:45',act:'shoot',members:['Luksorn','Mirin','Rose']},
+    {time:'15:00-15:45',act:'shoot',members:['Jew','Nammonn','Lingling']},
+    {time:'16:00-16:45',act:'shoot',members:['Fame','Lewlew','Praifa']},
+    {time:'17:00-17:45',act:'shoot',members:['Cartoon','Mayji','Saonoi']},
+    {time:'10:00-10:45',act:'dome',members:['L','Jingjing','Nisha']},
+    {time:'11:00-11:45',act:'dome',members:['Mayji','Mint','Ginna']},
+    {time:'12:00-12:45',act:'dome',members:['Hoop','Neen','Kwan']},
+    {time:'13:00-13:45',act:'dome',members:['Khowjow','Marine','Lookked']},
+    {time:'14:00-14:45',act:'dome',members:['Yoghurt','Satangpound','Chifa']},
+    {time:'15:00-15:45',act:'dome',members:['Cartoon','Emmy','Tara']},
+    {time:'16:00-16:45',act:'dome',members:['Monet','Berry','Shenae']},
+    {time:'17:00-17:45',act:'dome',members:['Blythe','Hongyok','Nammonn']},
+    {time:'10:00-10:45',act:'smg',members:['Grape','Mail','Mirin']},
+    {time:'11:00-11:45',act:'smg',members:['Rose','Patt','Emmy']},
+    {time:'12:00-12:45',act:'smg',members:['Luksorn','Galeya','Nana']},
+    {time:'13:00-13:45',act:'smg',members:['Marine','Micha','Lingling']},
+    {time:'14:00-14:45',act:'smg',members:['Palmmy','Ploen','Arlee']},
+    {time:'15:00-15:45',act:'smg',members:['Wawa','Prae','Nisha']},
+    {time:'16:00-16:45',act:'smg',members:['Khaimook','Jew','Niya']},
+    {time:'17:00-17:45',act:'smg',members:['Monet','Pancake','Fame']},
+    {time:'10:00-10:45',act:'doo',members:['Galeya','Niya','Mayji']},
+    {time:'11:00-11:45',act:'doo',members:['Saonoi','Khaimook','Micha']},
+    {time:'12:00-12:45',act:'doo',members:['Pancake','Jingjing','Praifa']},
+    {time:'13:00-13:45',act:'doo',members:['Marine','Niya','Nisha']},
+    {time:'14:00-14:45',act:'doo',members:['Monet','Praew','Lewlew']},
+    {time:'15:00-15:45',act:'doo',members:['Fame','Neen','Proud']},
+    {time:'16:00-16:45',act:'doo',members:['Blythe','Sindy','Yoghurt']},
+    {time:'17:00-17:45',act:'doo',members:['Inkcha','Punpon','Namphet']},
+    {time:'10:00-10:45',act:'mai',members:['Praew','Saonoi','Hongyok']},
+    {time:'11:00-11:45',act:'mai',members:['Grape','Mail','Pancake']},
+    {time:'12:00-12:45',act:'mai',members:['Mint','Arlee','Proud']},
+    {time:'13:00-13:45',act:'mai',members:['Monet','Nammonn','Valentine']},
+    {time:'14:00-14:45',act:'mai',members:['Hoop','Berry','Jingjing']},
+    {time:'15:00-15:45',act:'mai',members:['Yoghurt','Micha','Ginna']},
+    {time:'16:00-16:45',act:'mai',members:['Khowjow','Marine','Namphet']},
+    {time:'17:00-17:45',act:'mai',members:['Niya','Chifa','Tara']},
   ]
 };
 
-// Extract all unique members
-const ALL_MEMBERS = [...new Set(
-  Object.values(SCHEDULE).flat().flatMap(s => s.members)
-)].sort();
+const ALL_MEMBERS = [...new Set(Object.values(SCHEDULE).flat().flatMap(s=>s.members))].sort();
 
+// ============================================================
+// STATE
+// ============================================================
 let selectedMembers = new Set();
 let currentDay = 'fri';
 let searchTerm = '';
+let tickets = {}; // key: "day|time|act" -> count
+
+// ============================================================
+// COOKIE
+// ============================================================
+let saveTimer = null;
+function saveCookie() {
+  const data = { members:[...selectedMembers], tickets };
+  document.cookie = `sf2026=${encodeURIComponent(JSON.stringify(data))};path=/;max-age=${60*60*24*30}`;
+  const ind = document.getElementById('saveIndicator');
+  if (ind) { ind.classList.add('show'); clearTimeout(saveTimer); saveTimer = setTimeout(()=>ind.classList.remove('show'),1800); }
+}
+
+function loadCookie() {
+  const m = document.cookie.match(/(?:^|;\s*)sf2026=([^;]*)/);
+  if (!m) return;
+  try {
+    const d = JSON.parse(decodeURIComponent(m[1]));
+    if (d.members) d.members.forEach(x => selectedMembers.add(x));
+    if (d.tickets) tickets = d.tickets;
+  } catch(e){}
+}
+
+// ============================================================
+// TICKETS
+// ============================================================
+function tKey(day,time,act){ return `${day}|${time}|${act}`; }
+function getTick(day,time,act){ return tickets[tKey(day,time,act)]||0; }
+function setTick(day,time,act,v){
+  const k = tKey(day,time,act);
+  if (v<=0) delete tickets[k]; else tickets[k]=v;
+  saveCookie(); updateBudgetBar(); renderBudgetSummary();
+  const el = document.getElementById('tc-'+k.replace(/[|:]/g,'_'));
+  if (el) { el.textContent = tickets[k]||0; }
+  const thb = document.getElementById('th-'+k.replace(/[|:]/g,'_'));
+  if (thb) { const n=tickets[k]||0; thb.textContent = n>0 ? (n*TICKET_PRICE).toLocaleString('th-TH')+' ฿':''; }
+}
+function chTick(day,time,act,d){ setTick(day,time,act,Math.max(0,getTick(day,time,act)+d)); }
+function safeId(k){ return k.replace(/[|:]/g,'_'); }
+
+// ============================================================
+// BUDGET
+// ============================================================
+function dayBudget(day){ return Object.entries(tickets).filter(([k])=>k.startsWith(day+'|')).reduce((s,[,v])=>s+v*TICKET_PRICE,0); }
+function totalBudget(){ return DAYS.reduce((s,d)=>s+dayBudget(d),0); }
+function fmt(n){ return n.toLocaleString('th-TH')+' ฿'; }
+
+function updateBudgetBar(){
+  DAYS.forEach(d=>{ document.getElementById('bb-'+d).textContent=fmt(dayBudget(d)); });
+  document.getElementById('bb-total').textContent=fmt(totalBudget());
+}
+
+function renderBudgetSummary(){
+  const el = document.getElementById('budgetSummaryContent');
+  const hasAny = Object.values(tickets).some(v=>v>0);
+  if (!hasAny) {
+    el.innerHTML=`<div class="no-selection" style="padding:22px 10px"><div class="big-icon" style="font-size:30px">🎟️</div><p style="font-size:12px">กด + เพื่อเพิ่ม Ticket<br>1 ticket = 250 ฿</p></div>`;
+    return;
+  }
+  let html=''; let gTotal=0,gTick=0;
+  DAYS.forEach(day=>{
+    const ents=Object.entries(tickets).filter(([k,v])=>k.startsWith(day+'|')&&v>0);
+    if(!ents.length) return;
+    const dt=dayBudget(day); gTotal+=dt;
+    const dTick=ents.reduce((s,[,v])=>s+v,0); gTick+=dTick;
+    html+=`<div class="day-summary-card">
+      <div class="day-summary-header" onclick="toggleDS('ds-${day}','chev-${day}')">
+        <span>${DAY_LABELS[day]}</span>
+        <div class="dsh-right"><span class="dsh-total">${fmt(dt)}</span><span class="dsh-chevron open" id="chev-${day}">▼</span></div>
+      </div>
+      <div class="day-summary-body open" id="ds-${day}">
+        <table class="summary-table">
+          <thead><tr><th>เวลา</th><th>กิจกรรม</th><th>🎟️</th><th>฿</th></tr></thead><tbody>`;
+    ents.forEach(([k,v])=>{
+      const [,t,a]=k.split('|');
+      html+=`<tr><td class="col-time">${t}</td><td><span class="activity-tag ${ACTIVITIES[a].cls}">${ACTIVITIES[a].label}</span></td><td class="col-tick">${v}</td><td class="col-thb">${fmt(v*TICKET_PRICE)}</td></tr>`;
+    });
+    html+=`<tr class="day-total-row"><td colspan="2" style="color:rgba(255,255,255,.55)">รวม</td><td class="col-tick">${dTick}</td><td class="col-thb">${fmt(dt)}</td></tr>
+        </tbody></table>
+      </div></div>`;
+  });
+  html+=`<div class="grand-total-card">
+    <div><div class="gt-label">💰 รวมทุกวัน</div><div class="gt-detail">${gTick} ticket × ${TICKET_PRICE.toLocaleString()} ฿</div></div>
+    <div style="text-align:right"><div class="gt-amount">${fmt(gTotal)}</div><div class="gt-tickets">${gTick} tickets</div></div>
+  </div>`;
+  el.innerHTML=html;
+}
+
+function toggleDS(id,chevId){
+  const b=document.getElementById(id); const c=document.getElementById(chevId);
+  b.classList.toggle('open'); c.classList.toggle('open');
+}
 
 // ============================================================
 // BUBBLES
 // ============================================================
-function createBubbles() {
-  const container = document.getElementById('bubbles');
-  for (let i = 0; i < 18; i++) {
-    const b = document.createElement('div');
-    b.className = 'bubble';
-    const size = Math.random() * 60 + 20;
-    b.style.cssText = `
-      width: ${size}px; height: ${size}px;
-      left: ${Math.random() * 100}%;
-      animation-duration: ${Math.random() * 15 + 10}s;
-      animation-delay: ${Math.random() * 10}s;
-    `;
-    container.appendChild(b);
+function createBubbles(){
+  const c=document.getElementById('bubbles');
+  for(let i=0;i<16;i++){
+    const b=document.createElement('div'); b.className='bubble';
+    const s=Math.random()*60+18;
+    b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*14+9}s;animation-delay:${Math.random()*10}s;`;
+    c.appendChild(b);
   }
 }
 
 // ============================================================
 // MEMBER LIST
 // ============================================================
-function renderMemberList() {
-  const container = document.getElementById('memberList');
-  const filtered = ALL_MEMBERS.filter(m =>
-    m.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Count activities per member for current day
-  const counts = {};
-  (SCHEDULE[currentDay] || []).forEach(s => {
-    s.members.forEach(m => {
-      counts[m] = (counts[m] || 0) + 1;
-    });
-  });
-
-  container.innerHTML = filtered.map(m => {
-    const checked = selectedMembers.has(m);
-    const cnt = counts[m] || 0;
-    return `
-      <div class="member-item ${checked ? 'checked' : ''}" onclick="toggleMember('${m}')">
-        <div class="checkmark">
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-            <path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="member-name">${m}</span>
-        ${cnt > 0 ? `<span class="member-count-dot">${cnt}</span>` : ''}
-      </div>`;
+function renderMemberList(){
+  const container=document.getElementById('memberList');
+  const filtered=ALL_MEMBERS.filter(m=>m.toLowerCase().includes(searchTerm.toLowerCase()));
+  const counts={};
+  const viewDays=currentDay==='all'?DAYS:[currentDay];
+  viewDays.forEach(d=>(SCHEDULE[d]||[]).forEach(s=>s.members.forEach(m=>{counts[m]=(counts[m]||0)+1;})));
+  container.innerHTML=filtered.map(m=>{
+    const checked=selectedMembers.has(m); const cnt=counts[m]||0;
+    return `<div class="member-item ${checked?'checked':''}" onclick="toggleMember('${m}')">
+      <div class="checkmark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="member-name">${m}</span>
+      ${cnt>0?`<span class="member-count-dot">${cnt}</span>`:''}
+    </div>`;
   }).join('');
 }
 
-function toggleMember(name) {
-  if (selectedMembers.has(name)) {
-    selectedMembers.delete(name);
-  } else {
-    selectedMembers.add(name);
-  }
-  renderMemberList();
-  renderSchedule();
+function toggleMember(name){
+  if(selectedMembers.has(name)) selectedMembers.delete(name); else selectedMembers.add(name);
+  saveCookie(); renderMemberList(); renderSchedule();
 }
-
-function filterMembers() {
-  searchTerm = document.getElementById('memberSearch').value;
-  renderMemberList();
-}
-
-function selectAll() {
-  ALL_MEMBERS.forEach(m => selectedMembers.add(m));
-  renderMemberList();
-  renderSchedule();
-}
-
-function clearAll() {
-  selectedMembers.clear();
-  renderMemberList();
-  renderSchedule();
-}
+function filterMembers(){ searchTerm=document.getElementById('memberSearch').value; renderMemberList(); }
+function selectAll(){ ALL_MEMBERS.forEach(m=>selectedMembers.add(m)); saveCookie(); renderMemberList(); renderSchedule(); }
+function clearAll(){ selectedMembers.clear(); saveCookie(); renderMemberList(); renderSchedule(); }
 
 // ============================================================
 // DAY TABS
 // ============================================================
-function setDay(day) {
-  currentDay = day;
-  document.querySelectorAll('.day-tab').forEach((t, i) => {
-    t.classList.toggle('active', ['fri','sat','sun'][i] === day);
+function setDay(day){
+  currentDay=day;
+  document.querySelectorAll('.day-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['fri','sat','sun','all'][i]===day);
   });
-  renderSchedule();
-  renderMemberList();
+  renderSchedule(); renderMemberList();
 }
 
 // ============================================================
-// SCHEDULE RENDER
+// RENDER SLOTS FOR ONE DAY
 // ============================================================
-function renderSchedule() {
-  const content = document.getElementById('scheduleContent');
-  const selCount = document.getElementById('selCount');
-  const summaryStrip = document.getElementById('summaryStrip');
-  const summaryChips = document.getElementById('summaryChips');
-
-  selCount.textContent = selectedMembers.size;
-
-  // Summary strip
-  if (selectedMembers.size > 0) {
-    summaryStrip.style.display = 'flex';
-    summaryChips.innerHTML = [...selectedMembers].map(m =>
-      `<span class="summary-chip">${m}</span>`
-    ).join('');
-  } else {
-    summaryStrip.style.display = 'none';
-  }
-
-  if (selectedMembers.size === 0) {
-    content.innerHTML = `
-      <div class="no-selection">
-        <div class="big-icon">🌊</div>
-        <p>เลือก Member เพื่อดูตารางกิจกรรม</p>
-      </div>`;
-    return;
-  }
-
-  const dayData = SCHEDULE[currentDay] || [];
-
-  // Group by time
-  const timeMap = {};
-  dayData.forEach(slot => {
-    if (!timeMap[slot.time]) timeMap[slot.time] = [];
-    timeMap[slot.time].push(slot);
+function renderDaySlots(day){
+  if(selectedMembers.size===0) return '';
+  const timeMap={};
+  (SCHEDULE[day]||[]).forEach(s=>{
+    if(!timeMap[s.time]) timeMap[s.time]=[];
+    timeMap[s.time].push(s);
   });
-
-  // Filter: only times where at least one selected member appears
-  const relevantTimes = Object.keys(timeMap)
-    .filter(t => timeMap[t].some(s => s.members.some(m => selectedMembers.has(m))))
-    .sort();
-
-  if (relevantTimes.length === 0) {
-    content.innerHTML = `
-      <div class="no-selection">
-        <div class="big-icon">🔍</div>
-        <p>ไม่พบกิจกรรมสำหรับ member ที่เลือก</p>
-      </div>`;
-    return;
-  }
-
-  content.innerHTML = relevantTimes.map(time => {
-    const slots = timeMap[time];
-    const relevantSlots = slots.filter(s => s.members.some(m => selectedMembers.has(m)));
-
-    const actTags = [...new Set(relevantSlots.map(s => s.act))].map(a =>
-      `<span class="activity-tag ${ACTIVITIES[a].cls}">${ACTIVITIES[a].label}</span>`
-    ).join('');
-
-    const rows = relevantSlots.map(s => {
-      const pills = s.members.map(m => {
-        const isSelected = selectedMembers.has(m);
-        return `<span class="member-pill ${isSelected ? 'pill-highlight' : ''}" style="${isSelected ? '' : 'background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);'}">${m}</span>`;
+  const times=Object.keys(timeMap).filter(t=>timeMap[t].some(s=>s.members.some(m=>selectedMembers.has(m)))).sort();
+  if(!times.length) return '';
+  return times.map(time=>{
+    const slots=timeMap[time];
+    const relSlots=slots.filter(s=>s.members.some(m=>selectedMembers.has(m)));
+    const actTags=[...new Set(relSlots.map(s=>s.act))].map(a=>`<span class="activity-tag ${ACTIVITIES[a].cls}">${ACTIVITIES[a].label}</span>`).join('');
+    const rows=relSlots.map(s=>{
+      const pills=s.members.map(m=>{
+        const isSel=selectedMembers.has(m);
+        return `<span class="member-pill ${isSel?'pill-highlight':''}" style="${isSel?'':'background:rgba(255,255,255,.1);color:rgba(255,255,255,.4);'}">${m}</span>`;
       }).join('');
-      return `
-        <div class="activity-row">
-          <div class="activity-name-tag">
-            <span class="activity-tag ${ACTIVITIES[s.act].cls}">${ACTIVITIES[s.act].label}</span>
-          </div>
-          <div class="activity-members-list">${pills}</div>
-        </div>`;
-    }).join('');
-
-    return `
-      <div class="time-block">
-        <div class="time-block-header">
-          <span class="time-label">🕐 ${time}</span>
-          <div class="time-activities-summary">${actTags}</div>
+      const k=tKey(day,time,s.act); const sid=safeId(k);
+      const tCount=tickets[k]||0;
+      const thbVal=tCount>0?(tCount*TICKET_PRICE).toLocaleString('th-TH')+' ฿':'';
+      const defTick=ACTIVITIES[s.act].defaultTick;
+      return `<div class="activity-row">
+        <div class="activity-name-tag"><span class="activity-tag ${ACTIVITIES[s.act].cls}">${ACTIVITIES[s.act].label}</span></div>
+        <div class="activity-members-list">${pills}</div>
+        <div class="ticket-ctrl">
+          ${defTick>0?`<span class="ticket-hint">${defTick}🎟️</span>`:''}
+          <button class="ticket-btn minus" onclick="chTick('${day}','${time}','${s.act}',-1)">−</button>
+          <span class="ticket-count" id="tc-${sid}">${tCount}</span>
+          <button class="ticket-btn plus" onclick="chTick('${day}','${time}','${s.act}',1)">+</button>
+          <span class="ticket-thb" id="th-${sid}">${thbVal}</span>
         </div>
-        <div class="time-block-body">${rows}</div>
       </div>`;
+    }).join('');
+    return `<div class="time-block">
+      <div class="time-block-header"><span class="time-label">🕐 ${time}</span><div class="time-activities-summary">${actTags}</div></div>
+      <div class="time-block-body">${rows}</div>
+    </div>`;
   }).join('');
+}
+
+// ============================================================
+// MAIN RENDER
+// ============================================================
+function renderSchedule(){
+  const content=document.getElementById('scheduleContent');
+  document.getElementById('selCount').textContent=selectedMembers.size;
+  const strip=document.getElementById('summaryStrip');
+  if(selectedMembers.size>0){
+    strip.style.display='flex';
+    document.getElementById('summaryChips').innerHTML=[...selectedMembers].map(m=>`<span class="summary-chip">${m}</span>`).join('');
+  } else { strip.style.display='none'; }
+
+  if(selectedMembers.size===0){
+    content.innerHTML=`<div class="no-selection"><div class="big-icon">🌊</div><p>เลือก Member เพื่อดูตารางกิจกรรม</p></div>`; return;
+  }
+  if(currentDay==='all'){
+    let html=''; let found=false;
+    DAYS.forEach(d=>{
+      const s=renderDaySlots(d);
+      if(s){ found=true; html+=`<div class="day-section-header">📅 ${DAY_LABELS[d]}</div>${s}`; }
+    });
+    content.innerHTML=found?html:`<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรม</p></div>`;
+  } else {
+    const s=renderDaySlots(currentDay);
+    content.innerHTML=s||`<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรม</p></div>`;
+  }
 }
 
 // ============================================================
 // INIT
 // ============================================================
 createBubbles();
+loadCookie();
 renderMemberList();
 renderSchedule();
+updateBudgetBar();
+renderBudgetSummary();
 </script>
 </body>
 </html>
