@@ -151,6 +151,55 @@
   .member-pill{font-family:'Kanit',sans-serif;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;color:#fff}
   .pill-highlight{background:linear-gradient(135deg,var(--coral),var(--lavender));box-shadow:0 2px 8px rgba(251,113,133,.3)}
 
+  /* filter section */
+  .filter-section {
+    margin: 10px 0 15px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .filter-title {
+    font-family: 'Kanit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sky);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .filter-chip {
+    font-family: 'Kanit', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-chip:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  .filter-chip.active {
+    background: linear-gradient(135deg, var(--coral), var(--lavender));
+    border-color: transparent;
+    color: white;
+  }
+  .filter-chip.clear {
+    background: rgba(251,113,133,0.15);
+    border-color: rgba(251,113,133,0.3);
+    color: #fb7185;
+  }
+
   /* ticket controls */
   .ticket-ctrl{display:flex;align-items:center;gap:5px;flex-shrink:0;margin-left:auto}
   .ticket-btn{width:24px;height:24px;border-radius:7px;border:none;cursor:pointer;font-family:'Kanit',sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;line-height:1}
@@ -220,6 +269,28 @@
         <div class="member-list" id="memberList"></div>
       </div>
 
+      <!-- Filter Activity Section -->
+      <div class="panel">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 13 10 21 14 18 14 13 22 3"/></svg>
+          Filter กิจกรรม
+        </div>
+        <div class="filter-section">
+          <div class="filter-title">🔍 แสดงเฉพาะ:</div>
+          <div class="filter-options" id="activityFilters">
+            <span class="filter-chip clear" onclick="setActivityFilter('')">ทั้งหมด</span>
+            <span class="filter-chip act-merch" data-act="merch" onclick="setActivityFilter('merch')">Merchandise</span>
+            <span class="filter-chip act-hachi" data-act="hachi" onclick="setActivityFilter('hachi')">Hachi Cha</span>
+            <span class="filter-chip act-hub" data-act="hub" onclick="setActivityFilter('hub')">ฮับขวัญ</span>
+            <span class="filter-chip act-shoot" data-act="shoot" onclick="setActivityFilter('shoot')">Shoot Sisters</span>
+            <span class="filter-chip act-dome" data-act="dome" onclick="setActivityFilter('dome')">โดนนนนตก</span>
+            <span class="filter-chip act-smg" data-act="smg" onclick="setActivityFilter('smg')">Shot Me Girls</span>
+            <span class="filter-chip act-doo" data-act="doo" onclick="setActivityFilter('doo')">ดูแปลกนะคะ</span>
+            <span class="filter-chip act-mai" data-act="mai" onclick="setActivityFilter('mai')">(ไม่)พร้อมค่ะ</span>
+          </div>
+        </div>
+      </div>
+
       <div class="panel">
         <div class="panel-title">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -228,7 +299,7 @@
         <div id="budgetSummaryContent">
           <div class="no-selection" style="padding:22px 10px">
             <div class="big-icon" style="font-size:30px">🎟️</div>
-            <p style="font-size:12px">กด + เพื่อเพิ่ม Ticket<br>1 ticket = 250 ฿</p>
+            <p style="font-size:12px">กด + เพื่อเพิ่ม Ticket</p>
           </div>
         </div>
         <div class="save-indicator" id="saveIndicator">💾 บันทึกแล้ว</div>
@@ -251,14 +322,14 @@
       </div>
 
       <div class="legend">
-        <span class="activity-tag act-merch">Merchandise</span>
-        <span class="activity-tag act-hachi">Hachi Cha</span>
-        <span class="activity-tag act-hub">ฮับขวัญ</span>
+        <span class="activity-tag act-merch">Merchandise (ฟรี)</span>
+        <span class="activity-tag act-hachi">Hachi Cha (ฟรี)</span>
+        <span class="activity-tag act-hub">ฮับขวัญ (200฿)</span>
         <span class="activity-tag act-shoot">Shoot Sisters</span>
-        <span class="activity-tag act-dome">โดนนนนตก</span>
-        <span class="activity-tag act-smg">Shot Me Girls</span>
-        <span class="activity-tag act-doo">ดูแปลก</span>
-        <span class="activity-tag act-mai">(ไม่)พร้อม</span>
+        <span class="activity-tag act-dome">โดนนนนตก (500฿)</span>
+        <span class="activity-tag act-smg">Shot Me Girls (1,250฿)</span>
+        <span class="activity-tag act-doo">ดูแปลกนะคะ</span>
+        <span class="activity-tag act-mai">(ไม่)พร้อมค่ะ</span>
       </div>
 
       <div id="summaryStrip" style="display:none" class="summary-strip">
@@ -282,15 +353,22 @@ const TICKET_PRICE = 250;
 const DAYS = ['fri','sat','sun'];
 const DAY_LABELS = {fri:'FRI 27 MAR',sat:'SAT 28 MAR',sun:'SUN 29 MAR'};
 
+// ราคาพิเศษตามกิจกรรม
+const SPECIAL_PRICES = {
+  hub: 200,        // ฮับขวัญ 200 บาท
+  dome: 500,       // โดนนนนตก 500 บาท (2 tickets)
+  smg: 1250,       // Shot Me Girls 1,250 บาท (5 tickets)
+};
+
 const ACTIVITIES = {
-  merch:{label:'Merchandise',  defaultTick:1, cls:'act-merch'},
-  hachi:{label:'Hachi Cha',    defaultTick:1, cls:'act-hachi'},
-  hub:  {label:'ฮับขวัญ',      defaultTick:0, cls:'act-hub'},
-  shoot:{label:'Shoot Sisters',defaultTick:1, cls:'act-shoot'},
-  dome: {label:'โดนนนนตก',     defaultTick:2, cls:'act-dome'},
-  smg:  {label:'Shot Me Girls',defaultTick:5, cls:'act-smg'},
-  doo:  {label:'ดูแปลกนะคะ',   defaultTick:1, cls:'act-doo'},
-  mai:  {label:'(ไม่)พร้อมค่ะ', defaultTick:1, cls:'act-mai'},
+  merch:{label:'Merchandise',  defaultTick:0, cls:'act-merch', price:0},
+  hachi:{label:'Hachi Cha',    defaultTick:0, cls:'act-hachi', price:0},
+  hub:  {label:'ฮับขวัญ',      defaultTick:1, cls:'act-hub', price:200},
+  shoot:{label:'Shoot Sisters',defaultTick:1, cls:'act-shoot', price:250},
+  dome: {label:'โดนนนนตก',     defaultTick:2, cls:'act-dome', price:500},
+  smg:  {label:'Shot Me Girls',defaultTick:5, cls:'act-smg', price:1250},
+  doo:  {label:'ดูแปลกนะคะ',   defaultTick:1, cls:'act-doo', price:250},
+  mai:  {label:'(ไม่)พร้อมค่ะ', defaultTick:1, cls:'act-mai', price:250},
 };
 
 const SCHEDULE = {
@@ -489,6 +567,7 @@ let selectedMembers = new Set();
 let currentDay = 'fri';
 let searchTerm = '';
 let tickets = {}; // key: "day|time|act" -> count
+let activityFilter = ''; // กรองตามกิจกรรม
 
 // ============================================================
 // COOKIE
@@ -516,6 +595,21 @@ function loadCookie() {
 // ============================================================
 function tKey(day,time,act){ return `${day}|${time}|${act}`; }
 function getTick(day,time,act){ return tickets[tKey(day,time,act)]||0; }
+
+// คำนวณราคาตามจำนวน tickets และกิจกรรม
+function getActivityPrice(act, count) {
+  // ถ้ามีราคาพิเศษ ใช้ราคาพิเศษ
+  if (SPECIAL_PRICES[act]) {
+    return SPECIAL_PRICES[act] * count;
+  }
+  // ถ้าเป็นกิจกรรมที่ต้องใช้ tickets คำนวณตามจำนวน tickets
+  if (ACTIVITIES[act].defaultTick > 0) {
+    return TICKET_PRICE * count * ACTIVITIES[act].defaultTick;
+  }
+  // กิจกรรมฟรี
+  return 0;
+}
+
 function setTick(day,time,act,v){
   const k = tKey(day,time,act);
   if (v<=0) delete tickets[k]; else tickets[k]=v;
@@ -523,15 +617,41 @@ function setTick(day,time,act,v){
   const el = document.getElementById('tc-'+k.replace(/[|:]/g,'_'));
   if (el) { el.textContent = tickets[k]||0; }
   const thb = document.getElementById('th-'+k.replace(/[|:]/g,'_'));
-  if (thb) { const n=tickets[k]||0; thb.textContent = n>0 ? (n*TICKET_PRICE).toLocaleString('th-TH')+' ฿':''; }
+  if (thb) { 
+    const n=tickets[k]||0;
+    const price = getActivityPrice(act, n);
+    thb.textContent = price > 0 ? price.toLocaleString('th-TH')+' ฿' : '';
+  }
 }
 function chTick(day,time,act,d){ setTick(day,time,act,Math.max(0,getTick(day,time,act)+d)); }
 function safeId(k){ return k.replace(/[|:]/g,'_'); }
 
 // ============================================================
+// FILTER
+// ============================================================
+function setActivityFilter(act) {
+  activityFilter = act;
+  // อัปเดต active state ใน filter chips
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.classList.remove('active');
+    if (chip.getAttribute('data-act') === act) {
+      chip.classList.add('active');
+    } else if (act === '' && chip.classList.contains('clear')) {
+      chip.classList.add('active');
+    }
+  });
+  renderSchedule();
+}
+
+// ============================================================
 // BUDGET
 // ============================================================
-function dayBudget(day){ return Object.entries(tickets).filter(([k])=>k.startsWith(day+'|')).reduce((s,[,v])=>s+v*TICKET_PRICE,0); }
+function dayBudget(day){ 
+  return Object.entries(tickets).filter(([k])=>k.startsWith(day+'|')).reduce((s,[k,v])=> {
+    const [, , act] = k.split('|');
+    return s + getActivityPrice(act, v);
+  }, 0); 
+}
 function totalBudget(){ return DAYS.reduce((s,d)=>s+dayBudget(d),0); }
 function fmt(n){ return n.toLocaleString('th-TH')+' ฿'; }
 
@@ -544,7 +664,7 @@ function renderBudgetSummary(){
   const el = document.getElementById('budgetSummaryContent');
   const hasAny = Object.values(tickets).some(v=>v>0);
   if (!hasAny) {
-    el.innerHTML=`<div class="no-selection" style="padding:22px 10px"><div class="big-icon" style="font-size:30px">🎟️</div><p style="font-size:12px">กด + เพื่อเพิ่ม Ticket<br>1 ticket = 250 ฿</p></div>`;
+    el.innerHTML=`<div class="no-selection" style="padding:22px 10px"><div class="big-icon" style="font-size:30px">🎟️</div><p style="font-size:12px">กด + เพื่อเพิ่ม Ticket</p></div>`;
     return;
   }
   let html=''; let gTotal=0,gTick=0;
@@ -563,15 +683,21 @@ function renderBudgetSummary(){
           <thead><tr><th>เวลา</th><th>กิจกรรม</th><th>🎟️</th><th>฿</th></tr></thead><tbody>`;
     ents.forEach(([k,v])=>{
       const [,t,a]=k.split('|');
-      html+=`<tr><td class="col-time">${t}</td><td><span class="activity-tag ${ACTIVITIES[a].cls}">${ACTIVITIES[a].label}</span></td><td class="col-tick">${v}</td><td class="col-thb">${fmt(v*TICKET_PRICE)}</td></tr>`;
+      const actPrice = getActivityPrice(a, v);
+      const ticketCount = ACTIVITIES[a].defaultTick > 0 ? v * ACTIVITIES[a].defaultTick : v;
+      html+=`<tr><td class="col-time">${t}</td><td><span class="activity-tag ${ACTIVITIES[a].cls}">${ACTIVITIES[a].label}</span></td><td class="col-tick">${ticketCount}</td><td class="col-thb">${actPrice > 0 ? fmt(actPrice) : 'ฟรี'}</td></tr>`;
     });
     html+=`<tr class="day-total-row"><td colspan="2" style="color:rgba(255,255,255,.55)">รวม</td><td class="col-tick">${dTick}</td><td class="col-thb">${fmt(dt)}</td></tr>
         </tbody></table>
       </div></div>`;
   });
+  const totalTickets = Object.entries(tickets).reduce((s,[k,v]) => {
+    const [, , act] = k.split('|');
+    return s + (ACTIVITIES[act].defaultTick > 0 ? v * ACTIVITIES[act].defaultTick : v);
+  }, 0);
   html+=`<div class="grand-total-card">
-    <div><div class="gt-label">💰 รวมทุกวัน</div><div class="gt-detail">${gTick} ticket × ${TICKET_PRICE.toLocaleString()} ฿</div></div>
-    <div style="text-align:right"><div class="gt-amount">${fmt(gTotal)}</div><div class="gt-tickets">${gTick} tickets</div></div>
+    <div><div class="gt-label">💰 รวมทุกวัน</div><div class="gt-detail">${totalTickets} ticket × ราคาตามกิจกรรม</div></div>
+    <div style="text-align:right"><div class="gt-amount">${fmt(gTotal)}</div><div class="gt-tickets">${totalTickets} tickets</div></div>
   </div>`;
   el.innerHTML=html;
 }
@@ -646,7 +772,13 @@ function renderDaySlots(day){
   if(!times.length) return '';
   return times.map(time=>{
     const slots=timeMap[time];
-    const relSlots=slots.filter(s=>s.members.some(m=>selectedMembers.has(m)));
+    // กรองตาม activity filter
+    let relSlots = slots.filter(s=>s.members.some(m=>selectedMembers.has(m)));
+    if (activityFilter) {
+      relSlots = relSlots.filter(s => s.act === activityFilter);
+    }
+    if (relSlots.length === 0) return '';
+    
     const actTags=[...new Set(relSlots.map(s=>s.act))].map(a=>`<span class="activity-tag ${ACTIVITIES[a].cls}">${ACTIVITIES[a].label}</span>`).join('');
     const rows=relSlots.map(s=>{
       const pills=s.members.map(m=>{
@@ -655,13 +787,25 @@ function renderDaySlots(day){
       }).join('');
       const k=tKey(day,time,s.act); const sid=safeId(k);
       const tCount=tickets[k]||0;
-      const thbVal=tCount>0?(tCount*TICKET_PRICE).toLocaleString('th-TH')+' ฿':'';
+      const price = getActivityPrice(s.act, tCount);
+      const thbVal = price > 0 ? price.toLocaleString('th-TH')+' ฿' : (tCount > 0 ? 'ฟรี' : '');
       const defTick=ACTIVITIES[s.act].defaultTick;
+      
+      // แสดง hint ตามราคาพิเศษ
+      let priceHint = '';
+      if (SPECIAL_PRICES[s.act]) {
+        priceHint = `${SPECIAL_PRICES[s.act].toLocaleString()}฿`;
+      } else if (defTick > 0) {
+        priceHint = `${defTick}🎟️`;
+      } else {
+        priceHint = 'ฟรี';
+      }
+      
       return `<div class="activity-row">
         <div class="activity-name-tag"><span class="activity-tag ${ACTIVITIES[s.act].cls}">${ACTIVITIES[s.act].label}</span></div>
         <div class="activity-members-list">${pills}</div>
         <div class="ticket-ctrl">
-          ${defTick>0?`<span class="ticket-hint">${defTick}🎟️</span>`:''}
+          <span class="ticket-hint">${priceHint}</span>
           <button class="ticket-btn minus" onclick="chTick('${day}','${time}','${s.act}',-1)">−</button>
           <span class="ticket-count" id="tc-${sid}">${tCount}</span>
           <button class="ticket-btn plus" onclick="chTick('${day}','${time}','${s.act}',1)">+</button>
@@ -697,10 +841,10 @@ function renderSchedule(){
       const s=renderDaySlots(d);
       if(s){ found=true; html+=`<div class="day-section-header">📅 ${DAY_LABELS[d]}</div>${s}`; }
     });
-    content.innerHTML=found?html:`<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรม</p></div>`;
+    content.innerHTML=found?html:`<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรม${activityFilter ? 'ตามที่เลือก' : ''}</p></div>`;
   } else {
     const s=renderDaySlots(currentDay);
-    content.innerHTML=s||`<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรม</p></div>`;
+    content.innerHTML=s||`<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรม${activityFilter ? 'ตามที่เลือก' : ''}</p></div>`;
   }
 }
 
