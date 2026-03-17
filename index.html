@@ -27,7 +27,7 @@
     0%{transform:translateY(110vh) rotate(0deg);opacity:0} 10%{opacity:1} 90%{opacity:0.5}
     100%{transform:translateY(-10vh) rotate(360deg);opacity:0}
   }
-  .container { position:relative; z-index:1; max-width:1160px; margin:0 auto; padding:20px 14px 80px; }
+  .container { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:20px 14px 80px; }
   .header { text-align:center; padding:28px 0 20px; animation:fadeDown .7s ease both; }
   @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
   .header-badge {
@@ -42,6 +42,37 @@
     filter:drop-shadow(0 0 28px rgba(125,211,252,0.4));
   }
   .header-sub { margin-top:6px; font-size:13px; color:rgba(255,255,255,0.6); font-weight:300; }
+  
+  /* Main Tabs */
+  .main-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 20px 0 10px;
+  }
+  .main-tab {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 24px;
+    border-radius: 30px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all .22s;
+  }
+  .main-tab:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+  .main-tab.active {
+    background: linear-gradient(135deg, var(--coral), var(--lavender));
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(251,113,133,0.45);
+  }
+  
   .day-tabs { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:20px 0 18px; animation:fadeUp .6s .2s ease both; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
   .day-tab {
@@ -56,6 +87,20 @@
   }
   .main-layout { display:grid; grid-template-columns:270px 1fr; gap:14px; animation:fadeUp .6s .32s ease both; }
   @media(max-width:740px){ .main-layout{grid-template-columns:1fr} }
+  
+  /* Summary Layout */
+  .summary-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+  }
+  @media(max-width:740px) {
+    .summary-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+  
   .panel {
     background:var(--card-bg); border:1px solid var(--card-border);
     backdrop-filter:blur(18px); border-radius:20px; padding:18px;
@@ -235,6 +280,75 @@
   .gt-tickets{font-family:'Kanit',sans-serif;font-size:11px;color:var(--mint);font-weight:700}
   .save-indicator{font-family:'Kanit',sans-serif;font-size:10px;color:var(--mint);text-align:center;padding:4px 0;opacity:0;transition:opacity .3s}
   .save-indicator.show{opacity:1}
+  
+  /* Summary Table Styles */
+  .summary-time-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  .summary-time-table th {
+    font-family: 'Kanit', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sky);
+    text-align: center;
+    padding: 8px 5px;
+    background: rgba(125,211,252,0.1);
+    border-bottom: 2px solid rgba(125,211,252,0.3);
+  }
+  .summary-time-table td {
+    font-family: 'Kanit', sans-serif;
+    font-size: 11px;
+    padding: 6px 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    vertical-align: top;
+  }
+  .summary-time-table .time-col {
+    color: var(--yellow);
+    font-weight: 700;
+    width: 80px;
+    text-align: center;
+  }
+  .summary-time-table .activity-col {
+    background: rgba(255,255,255,0.03);
+  }
+  .summary-member-pill {
+    display: inline-block;
+    font-family: 'Kanit', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin: 2px 3px 2px 0;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+  .summary-member-pill.highlight {
+    background: linear-gradient(135deg, var(--coral), var(--lavender));
+  }
+  .summary-activity-header {
+    font-family: 'Kanit', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    margin: 20px 0 10px 0;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(251,113,133,0.3), rgba(167,139,250,0.3));
+    border-radius: 10px;
+    border-left: 4px solid var(--coral);
+  }
+  .summary-cost-badge {
+    display: inline-block;
+    font-family: 'Kanit', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background: var(--yellow);
+    color: #0c1445;
+    margin-left: 5px;
+  }
 </style>
 </head>
 <body>
@@ -246,112 +360,149 @@
     <p class="header-sub">27–29 March 2026 · Activity Schedule Planner</p>
   </div>
 
-  <div class="day-tabs">
+  <!-- Main Tabs -->
+  <div class="main-tabs">
+    <button class="main-tab active" onclick="setMainTab('planner')">📋 วางแผนกิจกรรม</button>
+    <button class="main-tab" onclick="setMainTab('summary')">📊 สรุปตารางเวลา</button>
+  </div>
+
+  <!-- Day Tabs (แสดงเฉพาะในโหมด planner) -->
+  <div class="day-tabs" id="dayTabs" style="display:flex;">
     <button class="day-tab active" onclick="setDay('fri')">🌊 FRI 27 MAR</button>
     <button class="day-tab" onclick="setDay('sat')">☀️ SAT 28 MAR</button>
     <button class="day-tab" onclick="setDay('sun')">🌸 SUN 29 MAR</button>
     <button class="day-tab" onclick="setDay('all')">📅 ทุกวัน</button>
   </div>
 
-  <div class="main-layout">
-    <!-- LEFT -->
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="panel">
-        <div class="panel-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          เลือก Member
+  <!-- Planner Layout -->
+  <div id="plannerLayout" style="display:block;">
+    <div class="main-layout">
+      <!-- LEFT -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="panel">
+          <div class="panel-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            เลือก Member
+          </div>
+          <input class="search-box" id="memberSearch" placeholder="🔍 ค้นหาชื่อ..." oninput="filterMembers()"/>
+          <div class="quick-actions">
+            <button class="quick-btn" onclick="selectAll()">เลือกทั้งหมด</button>
+            <button class="quick-btn" onclick="clearAll()">ล้าง</button>
+          </div>
+          <div class="member-list" id="memberList"></div>
         </div>
-        <input class="search-box" id="memberSearch" placeholder="🔍 ค้นหาชื่อ..." oninput="filterMembers()"/>
-        <div class="quick-actions">
-          <button class="quick-btn" onclick="selectAll()">เลือกทั้งหมด</button>
-          <button class="quick-btn" onclick="clearAll()">ล้าง</button>
-        </div>
-        <div class="member-list" id="memberList"></div>
-      </div>
 
-      <!-- Filter Activity Section -->
-      <div class="panel">
-        <div class="panel-title">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 13 10 21 14 18 14 13 22 3"/></svg>
-          Filter กิจกรรม
-        </div>
-        <div class="filter-section">
-          <div class="filter-title">🔍 แสดงเฉพาะ:</div>
-          <div class="filter-options" id="activityFilters">
-            <span class="filter-chip clear active" data-act="" onclick="setActivityFilter('')">ทั้งหมด</span>
-            <span class="filter-chip act-merch" data-act="merch" onclick="setActivityFilter('merch')">Merchandise</span>
-            <span class="filter-chip act-hachi" data-act="hachi" onclick="setActivityFilter('hachi')">Hachi Cha</span>
-            <span class="filter-chip act-hub" data-act="hub" onclick="setActivityFilter('hub')">ฮับขวัญ</span>
-            <span class="filter-chip act-shoot" data-act="shoot" onclick="setActivityFilter('shoot')">Shoot Sisters</span>
-            <span class="filter-chip act-dome" data-act="dome" onclick="setActivityFilter('dome')">โดนนนนตก</span>
-            <span class="filter-chip act-smg" data-act="smg" onclick="setActivityFilter('smg')">Shot Me Girls</span>
-            <span class="filter-chip act-doo" data-act="doo" onclick="setActivityFilter('doo')">ดูแปลกนะคะ</span>
-            <span class="filter-chip act-mai" data-act="mai" onclick="setActivityFilter('mai')">(ไม่)พร้อมค่ะ</span>
+        <!-- Filter Activity Section -->
+        <div class="panel">
+          <div class="panel-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 13 10 21 14 18 14 13 22 3"/></svg>
+            Filter กิจกรรม
+          </div>
+          <div class="filter-section">
+            <div class="filter-title">🔍 แสดงเฉพาะ:</div>
+            <div class="filter-options" id="activityFilters">
+              <span class="filter-chip clear active" data-act="" onclick="setActivityFilter('')">ทั้งหมด</span>
+              <span class="filter-chip act-merch" data-act="merch" onclick="setActivityFilter('merch')">Merchandise</span>
+              <span class="filter-chip act-hachi" data-act="hachi" onclick="setActivityFilter('hachi')">Hachi Cha</span>
+              <span class="filter-chip act-hub" data-act="hub" onclick="setActivityFilter('hub')">ฮับขวัญ</span>
+              <span class="filter-chip act-shoot" data-act="shoot" onclick="setActivityFilter('shoot')">Shoot Sisters</span>
+              <span class="filter-chip act-dome" data-act="dome" onclick="setActivityFilter('dome')">โดนนนนตก</span>
+              <span class="filter-chip act-smg" data-act="smg" onclick="setActivityFilter('smg')">Shot Me Girls</span>
+              <span class="filter-chip act-doo" data-act="doo" onclick="setActivityFilter('doo')">ดูแปลกนะคะ</span>
+              <span class="filter-chip act-mai" data-act="mai" onclick="setActivityFilter('mai')">(ไม่)พร้อมค่ะ</span>
+            </div>
           </div>
         </div>
+
+        <div class="panel">
+          <div class="panel-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            สรุปค่าใช้จ่าย
+          </div>
+          <!-- ปุ่มรีเซ็ตข้อมูลทั้งหมด -->
+          <div style="margin-bottom: 12px;">
+            <button class="quick-btn" style="background:rgba(251,113,133,0.2); color:#fb7185; border-color:rgba(251,113,133,0.3);" onclick="resetAllData()">⟲ รีเซ็ตข้อมูลทั้งหมด</button>
+          </div>
+          <div id="budgetSummaryContent">
+            <div class="no-selection" style="padding:22px 10px">
+              <div class="big-icon" style="font-size:30px">🎟️</div>
+              <p style="font-size:12px">กด + เพื่อเพิ่ม Ticket</p>
+            </div>
+          </div>
+          <div class="save-indicator" id="saveIndicator">💾 บันทึกแล้ว</div>
+        </div>
       </div>
 
+      <!-- RIGHT -->
+      <div class="panel" style="position:relative;overflow:hidden">
+        <div class="budget-bar">
+          <span class="budget-bar-title">🎟️ งบรวม</span>
+          <div class="budget-day-chip"><span class="budget-day-label">FRI</span><span class="budget-day-val" id="bb-fri">0 ฿</span></div>
+          <div class="budget-day-chip"><span class="budget-day-label">SAT</span><span class="budget-day-val" id="bb-sat">0 ฿</span></div>
+          <div class="budget-day-chip"><span class="budget-day-label">SUN</span><span class="budget-day-val" id="bb-sun">0 ฿</span></div>
+          <div class="budget-total-chip"><span class="budget-total-label">TOTAL</span><span class="budget-total-val" id="bb-total">0 ฿</span></div>
+        </div>
+
+        <div class="panel-title" style="margin-top:4px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          ตารางกิจกรรม
+        </div>
+
+        <div class="legend">
+          <span class="activity-tag act-merch">Merchandise (ฟรี)</span>
+          <span class="activity-tag act-hachi">Hachi Cha (ฟรี)</span>
+          <span class="activity-tag act-hub">ฮับขวัญ (200฿)</span>
+          <span class="activity-tag act-shoot">Shoot Sisters (250฿)</span>
+          <span class="activity-tag act-dome">โดนนนนตก (500฿)</span>
+          <span class="activity-tag act-smg">Shot Me Girls (1,250฿)</span>
+          <span class="activity-tag act-doo">ดูแปลกนะคะ (250฿)</span>
+          <span class="activity-tag act-mai">(ไม่)พร้อมค่ะ (250฿)</span>
+        </div>
+
+        <div id="summaryStrip" style="display:none" class="summary-strip">
+          <span class="summary-strip-label">Member ที่เลือก</span>
+          <div class="summary-chips" id="summaryChips"></div>
+        </div>
+
+        <div class="schedule-header">
+          <div class="selected-count">แสดงกิจกรรมสำหรับ <span id="selCount">0</span> member</div>
+        </div>
+        <div id="scheduleContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Layout -->
+  <div id="summaryLayout" style="display:none;">
+    <div class="summary-layout">
+      <!-- Left Summary Panel -->
+      <div class="panel">
+        <div class="panel-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          สรุปตารางเวลาทั้งหมด
+        </div>
+        <div style="max-height: 600px; overflow-y: auto; padding-right: 5px;" id="fullScheduleSummary"></div>
+      </div>
+      
+      <!-- Right Cost Summary Panel -->
       <div class="panel">
         <div class="panel-title">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          สรุปค่าใช้จ่าย
+          สรุปค่าใช้จ่ายตามกิจกรรม
         </div>
-        <!-- ปุ่มรีเซ็ตข้อมูลทั้งหมด -->
-        <div style="margin-bottom: 12px;">
-          <button class="quick-btn" style="background:rgba(251,113,133,0.2); color:#fb7185; border-color:rgba(251,113,133,0.3);" onclick="resetAllData()">⟲ รีเซ็ตข้อมูลทั้งหมด</button>
+        <div id="costSummaryByActivity"></div>
+        <div class="grand-total-card" style="margin-top:15px;" id="costSummaryTotal">
+          <div><div class="gt-label">💰 รวมทั้งหมด</div><div class="gt-detail" id="totalTicketsDetail">0 tickets</div></div>
+          <div style="text-align:right"><div class="gt-amount" id="totalCostAmount">0 ฿</div></div>
         </div>
-        <div id="budgetSummaryContent">
-          <div class="no-selection" style="padding:22px 10px">
-            <div class="big-icon" style="font-size:30px">🎟️</div>
-            <p style="font-size:12px">กด + เพื่อเพิ่ม Ticket</p>
-          </div>
-        </div>
-        <div class="save-indicator" id="saveIndicator">💾 บันทึกแล้ว</div>
       </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="panel" style="position:relative;overflow:hidden">
-      <div class="budget-bar">
-        <span class="budget-bar-title">🎟️ งบรวม</span>
-        <div class="budget-day-chip"><span class="budget-day-label">FRI</span><span class="budget-day-val" id="bb-fri">0 ฿</span></div>
-        <div class="budget-day-chip"><span class="budget-day-label">SAT</span><span class="budget-day-val" id="bb-sat">0 ฿</span></div>
-        <div class="budget-day-chip"><span class="budget-day-label">SUN</span><span class="budget-day-val" id="bb-sun">0 ฿</span></div>
-        <div class="budget-total-chip"><span class="budget-total-label">TOTAL</span><span class="budget-total-val" id="bb-total">0 ฿</span></div>
-      </div>
-
-      <div class="panel-title" style="margin-top:4px">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        ตารางกิจกรรม
-      </div>
-
-      <div class="legend">
-        <span class="activity-tag act-merch">Merchandise (ฟรี)</span>
-        <span class="activity-tag act-hachi">Hachi Cha (ฟรี)</span>
-        <span class="activity-tag act-hub">ฮับขวัญ (200฿)</span>
-        <span class="activity-tag act-shoot">Shoot Sisters</span>
-        <span class="activity-tag act-dome">โดนนนนตก (500฿)</span>
-        <span class="activity-tag act-smg">Shot Me Girls (1,250฿)</span>
-        <span class="activity-tag act-doo">ดูแปลกนะคะ</span>
-        <span class="activity-tag act-mai">(ไม่)พร้อมค่ะ</span>
-      </div>
-
-      <div id="summaryStrip" style="display:none" class="summary-strip">
-        <span class="summary-strip-label">Member ที่เลือก</span>
-        <div class="summary-chips" id="summaryChips"></div>
-      </div>
-
-      <div class="schedule-header">
-        <div class="selected-count">แสดงกิจกรรมสำหรับ <span id="selCount">0</span> member</div>
-      </div>
-      <div id="scheduleContent"></div>
     </div>
   </div>
 </div>
 
 <script>
 // ============================================================
-// DATA
+// DATA (อัปเดตตามรูปภาพใหม่)
 // ============================================================
 const TICKET_PRICE = 250;
 const DAYS = ['fri','sat','sun'];
@@ -375,12 +526,16 @@ const ACTIVITIES = {
   mai:  {label:'(ไม่)พร้อมค่ะ', defaultTick:1, cls:'act-mai', price:250},
 };
 
+// ข้อมูลจากรูปภาพทั้งหมด (อัปเดตให้ครบทุกกิจกรรม)
 const SCHEDULE = {
-  fri:[
+  fri: [
+    // Merchandise (IMG_8724)
     {time:'11:00-11:45',act:'merch',members:['Cartoon','Grape','Lewlew','Tara']},
     {time:'13:00-13:45',act:'merch',members:['Namphet','Chifa','Inkcha','Punpon']},
     {time:'15:00-15:45',act:'merch',members:['Khowjow','Mayji','Mail','Rose']},
     {time:'17:00-17:45',act:'merch',members:['Luksorn','Mint','Mirin','Praew']},
+    
+    // Hachi Cha (IMG_8723)
     {time:'10:00-10:45',act:'hachi',members:['Grape','Mail','L']},
     {time:'11:00-11:45',act:'hachi',members:['Palmmy','Sindy','Else']},
     {time:'12:00-12:45',act:'hachi',members:['Wawa','Praifa','Namphet']},
@@ -390,28 +545,36 @@ const SCHEDULE = {
     {time:'16:00-16:45',act:'hachi',members:['Monet','Praew','Kwan']},
     {time:'17:00-17:45',act:'hachi',members:['Neen','Marine','Punpon']},
     {time:'18:00-18:45',act:'hachi',members:['Lingling','Chifa','Hongyok']},
+    
+    // ฮับขวัญ (IMG_8722)
     {time:'10:00-10:45',act:'hub',members:['Namphet','Lewlew','Tara']},
     {time:'11:00-11:45',act:'hub',members:['Chifa','Punpon']},
     {time:'15:00-15:45',act:'hub',members:['Lewlew','Punpon']},
     {time:'16:00-16:45',act:'hub',members:['Namphet','Chifa','Tara']},
+    
+    // Shoot Sisters (IMG_8719)
     {time:'10:00-10:45',act:'shoot',members:['Proud','Nana','Satangpound']},
     {time:'11:00-11:45',act:'shoot',members:['Mirin','Jingjing','Nisha']},
-    {time:'12:00-12:45',act:'shoot',members:['Fame','Rose','Valentine']},
-    {time:'13:00-13:45',act:'shoot',members:['Monet','L','Ploen']},
+    {time:'12:00-12:45',act:'shoot',members:['Fame','Rose','Ploen']},
+    {time:'13:00-13:45',act:'shoot',members:['Monet','L','Valentine']},
     {time:'14:00-14:45',act:'shoot',members:['Galeya','Jew','Arlee']},
     {time:'15:00-15:45',act:'shoot',members:['Blythe','Cartoon','Grape']},
     {time:'16:00-16:45',act:'shoot',members:['Inkcha','Mail','Mint']},
     {time:'17:00-17:45',act:'shoot',members:['Wawa','Hongyok','Lewlew']},
     {time:'18:00-18:45',act:'shoot',members:['Saonoi','Tara','Monet']},
+    
+    // โดนนนนตก (IMG_8720)
     {time:'10:00-10:45',act:'dome',members:['Mint','Ginna','Else']},
     {time:'11:00-11:45',act:'dome',members:['Jew','Niya','Nall']},
-    {time:'12:00-12:45',act:'dome',members:['Hoop','Janry','Punpon']},
-    {time:'13:00-13:45',act:'dome',members:['Fame','Palmmy','Kwan']},
+    {time:'12:00-12:45',act:'dome',members:['Hoop','Janry','Kwan']},
+    {time:'13:00-13:45',act:'dome',members:['Fame','Palmmy','Ploen']},
     {time:'14:00-14:45',act:'dome',members:['Micha','Emmy','Satangpound']},
     {time:'15:00-15:45',act:'dome',members:['Hoop','Proud','Lingling']},
     {time:'16:00-16:45',act:'dome',members:['Mayji','Nammonn','Valentine']},
     {time:'17:00-17:45',act:'dome',members:['Yoghurt','Patt','Ploen']},
     {time:'18:00-18:45',act:'dome',members:['Sindy','Praifa','Nisha']},
+    
+    // Shot Me Girls (IMG_8721)
     {time:'10:00-10:45',act:'smg',members:['Galeya','Hoop','Kwan']},
     {time:'11:00-11:45',act:'smg',members:['Blythe','Praew','Namphet']},
     {time:'12:00-12:45',act:'smg',members:['Mayji','Emmy','Chifa']},
@@ -421,6 +584,8 @@ const SCHEDULE = {
     {time:'16:00-16:45',act:'smg',members:['Saonoi','Proud','Neen']},
     {time:'17:00-17:45',act:'smg',members:['Ginna','Nana','Khowjow']},
     {time:'18:00-18:45',act:'smg',members:['Shenae','Prae','Jew']},
+    
+    // ดูแปลกนะคะ (IMG_8718)
     {time:'10:00-10:45',act:'doo',members:['Emmy','Janry','Mayji']},
     {time:'11:00-11:45',act:'doo',members:['Mint','Patt','Lookked']},
     {time:'12:00-12:45',act:'doo',members:['Galeya','Jew','Prae']},
@@ -430,6 +595,8 @@ const SCHEDULE = {
     {time:'16:00-16:45',act:'doo',members:['Niya','Else','Luksorn']},
     {time:'17:00-17:45',act:'doo',members:['Palmmy','Sindy','Jingjing']},
     {time:'18:00-18:45',act:'doo',members:['Khowjow','Rose','Satangpound']},
+    
+    // (ไม่)พร้อมค่ะ (IMG_8717)
     {time:'10:00-10:45',act:'mai',members:['Praew','Wawa','Ploen']},
     {time:'11:00-11:45',act:'mai',members:['Inkcha','L','Prae']},
     {time:'12:00-12:45',act:'mai',members:['Cartoon','Shenae','Valentine']},
@@ -440,11 +607,15 @@ const SCHEDULE = {
     {time:'17:00-17:45',act:'mai',members:['Mail','Janry','Lookked']},
     {time:'18:00-18:45',act:'mai',members:['Arlee','Nammonn','Nall']},
   ],
-  sat:[
+  
+  sat: [
+    // Merchandise (IMG_8724)
     {time:'11:00-11:45',act:'merch',members:['Nall','Palmmy','Lingling','Prae']},
     {time:'13:00-13:45',act:'merch',members:['Else','Hongyok','Satangpound','Kwan']},
     {time:'15:00-15:45',act:'merch',members:['Galeya','Berry','Praifa','Valentine']},
     {time:'17:00-17:45',act:'merch',members:['Khaimook','Neen','Proud','Shenae']},
+    
+    // Hachi Cha (IMG_8723)
     {time:'10:00-10:45',act:'hachi',members:['Jew','Arlee','Rose']},
     {time:'11:00-11:45',act:'hachi',members:['Mirin','Emmy','Janry']},
     {time:'12:00-12:45',act:'hachi',members:['Fame','Micha','Patt']},
@@ -454,10 +625,14 @@ const SCHEDULE = {
     {time:'16:00-16:45',act:'hachi',members:['Khowjow','Sindy','Wawa']},
     {time:'17:00-17:45',act:'hachi',members:['Valentine','Nisha','Prae']},
     {time:'18:00-18:45',act:'hachi',members:['Nall','Lewlew','Tara']},
+    
+    // ฮับขวัญ (IMG_8722)
     {time:'10:00-10:45',act:'hub',members:['Lewlew','Punpon']},
     {time:'11:00-11:45',act:'hub',members:['Namphet','Chifa','Tara']},
     {time:'15:00-15:45',act:'hub',members:['Namphet','Chifa','Tara']},
     {time:'16:00-16:45',act:'hub',members:['Lewlew','Punpon']},
+    
+    // Shoot Sisters (IMG_8719)
     {time:'10:00-10:45',act:'shoot',members:['L','Shenae','Prae']},
     {time:'11:00-11:45',act:'shoot',members:['Luksorn','Khaimook','Nana']},
     {time:'12:00-12:45',act:'shoot',members:['Niya','Neen','Punpon']},
@@ -467,6 +642,8 @@ const SCHEDULE = {
     {time:'16:00-16:45',act:'shoot',members:['Berry','Emmy','Janry']},
     {time:'17:00-17:45',act:'shoot',members:['Grape','Luksorn','Pancake']},
     {time:'18:00-18:45',act:'shoot',members:['Hoop','Palmmy','Lingling']},
+    
+    // โดนนนนตก (IMG_8720)
     {time:'10:00-10:45',act:'dome',members:['Micha','Patt','Sindy']},
     {time:'11:00-11:45',act:'dome',members:['Nall','Proud','Hongyok']},
     {time:'12:00-12:45',act:'dome',members:['Khowjow','Berry','Marine']},
@@ -474,8 +651,10 @@ const SCHEDULE = {
     {time:'14:00-14:45',act:'dome',members:['Cartoon','Wawa','Prae']},
     {time:'15:00-15:45',act:'dome',members:['Luksorn','Khaimook','Else']},
     {time:'16:00-16:45',act:'dome',members:['Rose','Saonoi','Lookked']},
-    {time:'17:00-17:45',act:'dome',members:['Inkcha','Palmmy','Jingjing']},
+    {time:'17:00-17:45',act:'dome',members:['Inkcha','Palmmy','Namphet']},
     {time:'18:00-18:45',act:'dome',members:['Galeya','Emmy','Chifa']},
+    
+    // Shot Me Girls (IMG_8721)
     {time:'10:00-10:45',act:'smg',members:['Cartoon','Praifa','Lookked']},
     {time:'11:00-11:45',act:'smg',members:['Fame','L','Satangpound']},
     {time:'12:00-12:45',act:'smg',members:['Inkcha','Sindy','Ploen']},
@@ -485,6 +664,8 @@ const SCHEDULE = {
     {time:'16:00-16:45',act:'smg',members:['Arlee','Nammonn','Lingling']},
     {time:'17:00-17:45',act:'smg',members:['Niya','Kwan','Janry']},
     {time:'18:00-18:45',act:'smg',members:['Punpon','Praew','Blythe']},
+    
+    // ดูแปลกนะคะ (IMG_8718)
     {time:'10:00-10:45',act:'doo',members:['Nall','Valentine','Nisha']},
     {time:'11:00-11:45',act:'doo',members:['Blythe','Grape','Mail']},
     {time:'12:00-12:45',act:'doo',members:['Valentine','Proud','L']},
@@ -494,21 +675,27 @@ const SCHEDULE = {
     {time:'16:00-16:45',act:'doo',members:['Hoop','Pancake','Nana']},
     {time:'17:00-17:45',act:'doo',members:['Ginna','Marine','Praifa']},
     {time:'18:00-18:45',act:'doo',members:['Hongyok','Ploen','Else']},
+    
+    // (ไม่)พร้อมค่ะ (IMG_8717)
     {time:'10:00-10:45',act:'mai',members:['Khowjow','Lingling','Jingjing']},
     {time:'11:00-11:45',act:'mai',members:['Mint','Wawa','Kwan']},
     {time:'12:00-12:45',act:'mai',members:['Luksorn','Khaimook','Else']},
-    {time:'13:00-13:45',act:'mai',members:['Fame','Berry','Namphet']},
+    {time:'13:00-13:45',act:'mai',members:['Fame','Berry','Lewlew']},
     {time:'14:00-14:45',act:'mai',members:['Pancake','Palmmy','Nana']},
     {time:'15:00-15:45',act:'mai',members:['Grape','Mail','Mirin']},
     {time:'16:00-16:45',act:'mai',members:['Praew','Ploen','Neen']},
     {time:'17:00-17:45',act:'mai',members:['Galeya','Jew','Nall']},
     {time:'18:00-18:45',act:'mai',members:['Rose','Saonoi','Satangpound']},
   ],
-  sun:[
+  
+  sun: [
+    // Merchandise (IMG_8724)
     {time:'11:00-11:45',act:'merch',members:['Chifa','Lewlew','Nana','Nisha']},
     {time:'13:00-13:45',act:'merch',members:['Fame','Namphet','Tara','Punpon']},
     {time:'15:00-15:45',act:'merch',members:['Patt','Sindy','Kwan','Ploen']},
     {time:'17:00-17:45',act:'merch',members:['Wawa','Ginna','Jingjing','Lookked']},
+    
+    // Hachi Cha (IMG_8723)
     {time:'10:00-10:45',act:'hachi',members:['Luksorn','Mint','Khowjow']},
     {time:'11:00-11:45',act:'hachi',members:['Else','Janry','Monet']},
     {time:'12:00-12:45',act:'hachi',members:['Else','Hongyok','Ginna']},
@@ -517,32 +704,42 @@ const SCHEDULE = {
     {time:'15:00-15:45',act:'hachi',members:['Mayji','Lookked','Punpon']},
     {time:'16:00-16:45',act:'hachi',members:['Inkcha','Ploen','Nana']},
     {time:'17:00-17:45',act:'hachi',members:['Mirin','L','Lewlew']},
+    
+    // ฮับขวัญ (IMG_8722)
     {time:'10:00-10:45',act:'hub',members:['Namphet','Chifa','Lewlew']},
     {time:'11:00-11:45',act:'hub',members:['Tara','Punpon']},
-    {time:'10:00-10:45',act:'shoot',members:['Janry','Marine','Lookked']},
+    
+    // Shoot Sisters (IMG_8719)
+    {time:'10:00-10:45',act:'shoot',members:['Janry','Marine','Else']},
     {time:'11:00-11:45',act:'shoot',members:['L','Palmmy','Namphet']},
     {time:'12:00-12:45',act:'shoot',members:['Emmy','Sindy','Shenae']},
-    {time:'13:00-13:45',act:'shoot',members:['Arlee','Khaimook','Prae']},
-    {time:'14:00-14:45',act:'shoot',members:['Luksorn','Mirin','Rose']},
+    {time:'13:00-13:45',act:'shoot',members:['Khowjow','Satangpound','Prae']},
+    {time:'14:00-14:45',act:'shoot',members:['Kwan','Mirin','Rose']},
     {time:'15:00-15:45',act:'shoot',members:['Jew','Nammonn','Lingling']},
-    {time:'16:00-16:45',act:'shoot',members:['Fame','Lewlew','Praifa']},
+    {time:'16:00-16:45',act:'shoot',members:['Fame','Chifa','Praifa']},
     {time:'17:00-17:45',act:'shoot',members:['Cartoon','Mayji','Saonoi']},
+    
+    // โดนนนนตก (IMG_8720)
     {time:'10:00-10:45',act:'dome',members:['L','Jingjing','Nisha']},
     {time:'11:00-11:45',act:'dome',members:['Mayji','Mint','Ginna']},
-    {time:'12:00-12:45',act:'dome',members:['Hoop','Neen','Kwan']},
-    {time:'13:00-13:45',act:'dome',members:['Khowjow','Marine','Lookked']},
-    {time:'14:00-14:45',act:'dome',members:['Yoghurt','Satangpound','Chifa']},
-    {time:'15:00-15:45',act:'dome',members:['Cartoon','Emmy','Tara']},
+    {time:'12:00-12:45',act:'dome',members:['Pancake','Neen','Kwan']},
+    {time:'13:00-13:45',act:'dome',members:['Marine','Arlee','Lookked']},
+    {time:'14:00-14:45',act:'dome',members:['Yoghurt','Lewlew','Punpon']},
+    {time:'15:00-15:45',act:'dome',members:['Cartoon','Saonoi','Tara']},
     {time:'16:00-16:45',act:'dome',members:['Monet','Berry','Shenae']},
-    {time:'17:00-17:45',act:'dome',members:['Blythe','Hongyok','Nammonn']},
+    {time:'17:00-17:45',act:'dome',members:['Mail','Hongyok','Nammonn']},
+    
+    // Shot Me Girls (IMG_8721)
     {time:'10:00-10:45',act:'smg',members:['Grape','Mail','Mirin']},
     {time:'11:00-11:45',act:'smg',members:['Rose','Patt','Emmy']},
     {time:'12:00-12:45',act:'smg',members:['Luksorn','Galeya','Nana']},
-    {time:'13:00-13:45',act:'smg',members:['Marine','Micha','Lingling']},
-    {time:'14:00-14:45',act:'smg',members:['Palmmy','Ploen','Arlee']},
+    {time:'13:00-13:45',act:'smg',members:['Palmmy','Micha','Lingling']},
+    {time:'14:00-14:45',act:'smg',members:['Marine','Ploen','Arlee']},
     {time:'15:00-15:45',act:'smg',members:['Wawa','Prae','Nisha']},
     {time:'16:00-16:45',act:'smg',members:['Khaimook','Jew','Niya']},
     {time:'17:00-17:45',act:'smg',members:['Monet','Pancake','Fame']},
+    
+    // ดูแปลกนะคะ (IMG_8718)
     {time:'10:00-10:45',act:'doo',members:['Galeya','Niya','Mayji']},
     {time:'11:00-11:45',act:'doo',members:['Saonoi','Khaimook','Micha']},
     {time:'12:00-12:45',act:'doo',members:['Pancake','Jingjing','Praifa']},
@@ -551,8 +748,10 @@ const SCHEDULE = {
     {time:'15:00-15:45',act:'doo',members:['Fame','Neen','Proud']},
     {time:'16:00-16:45',act:'doo',members:['Blythe','Sindy','Yoghurt']},
     {time:'17:00-17:45',act:'doo',members:['Inkcha','Punpon','Namphet']},
-    {time:'10:00-10:45',act:'mai',members:['Praew','Saonoi','Hongyok']},
-    {time:'11:00-11:45',act:'mai',members:['Grape','Mail','Pancake']},
+    
+    // (ไม่)พร้อมค่ะ (IMG_8717)
+    {time:'10:00-10:45',act:'mai',members:['Praew','Emmy','Hongyok']},
+    {time:'11:00-11:45',act:'mai',members:['Grape','Blythe','Pancake']},
     {time:'12:00-12:45',act:'mai',members:['Mint','Arlee','Proud']},
     {time:'13:00-13:45',act:'mai',members:['Monet','Nammonn','Valentine']},
     {time:'14:00-14:45',act:'mai',members:['Hoop','Berry','Jingjing']},
@@ -562,6 +761,7 @@ const SCHEDULE = {
   ]
 };
 
+// รวบรวมสมาชิกทั้งหมด
 const ALL_MEMBERS = [...new Set(Object.values(SCHEDULE).flat().flatMap(s=>s.members))].sort();
 
 // ============================================================
@@ -572,6 +772,7 @@ let currentDay = 'fri';
 let searchTerm = '';
 let tickets = {}; // key: "day|time|act" -> count
 let activityFilter = ''; // กรองตามกิจกรรม
+let currentMainTab = 'planner'; // 'planner' or 'summary'
 
 // ============================================================
 // COOKIE
@@ -595,6 +796,30 @@ function loadCookie() {
 }
 
 // ============================================================
+// MAIN TAB
+// ============================================================
+function setMainTab(tab) {
+  currentMainTab = tab;
+  document.querySelectorAll('.main-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && tab === 'planner') || (i === 1 && tab === 'summary'));
+  });
+  
+  if (tab === 'planner') {
+    document.getElementById('plannerLayout').style.display = 'block';
+    document.getElementById('summaryLayout').style.display = 'none';
+    document.getElementById('dayTabs').style.display = 'flex';
+    renderSchedule();
+    renderMemberList();
+  } else {
+    document.getElementById('plannerLayout').style.display = 'none';
+    document.getElementById('summaryLayout').style.display = 'block';
+    document.getElementById('dayTabs').style.display = 'none';
+    renderFullScheduleSummary();
+    renderCostSummaryByActivity();
+  }
+}
+
+// ============================================================
 // TICKETS
 // ============================================================
 function tKey(day,time,act){ return `${day}|${time}|${act}`; }
@@ -602,15 +827,12 @@ function getTick(day,time,act){ return tickets[tKey(day,time,act)]||0; }
 
 // คำนวณราคาตามจำนวน tickets และกิจกรรม
 function getActivityPrice(act, count) {
-  // ถ้ามีราคาพิเศษ ใช้ราคาพิเศษ
   if (SPECIAL_PRICES[act]) {
     return SPECIAL_PRICES[act] * count;
   }
-  // ถ้าเป็นกิจกรรมที่ต้องใช้ tickets คำนวณตามจำนวน tickets
   if (ACTIVITIES[act].defaultTick > 0) {
     return TICKET_PRICE * count * ACTIVITIES[act].defaultTick;
   }
-  // กิจกรรมฟรี
   return 0;
 }
 
@@ -635,7 +857,6 @@ function safeId(k){ return k.replace(/[|:]/g,'_'); }
 // ============================================================
 function setActivityFilter(act) {
   activityFilter = act;
-  // อัปเดต active state ใน filter chips
   document.querySelectorAll('.filter-chip').forEach(chip => {
     chip.classList.remove('active');
     if (chip.getAttribute('data-act') === act) {
@@ -719,7 +940,6 @@ function resetAllData() {
     selectedMembers.clear();
     tickets = {};
     activityFilter = '';
-    // อัปเดต active class ของ filter chips
     document.querySelectorAll('.filter-chip').forEach(chip => {
       chip.classList.remove('active');
       if (chip.classList.contains('clear')) chip.classList.add('active');
@@ -729,6 +949,10 @@ function resetAllData() {
     renderSchedule();
     updateBudgetBar();
     renderBudgetSummary();
+    if (currentMainTab === 'summary') {
+      renderFullScheduleSummary();
+      renderCostSummaryByActivity();
+    }
   }
 }
 
@@ -767,10 +991,14 @@ function renderMemberList(){
 function toggleMember(name){
   if(selectedMembers.has(name)) selectedMembers.delete(name); else selectedMembers.add(name);
   saveCookie(); renderMemberList(); renderSchedule();
+  if (currentMainTab === 'summary') {
+    renderFullScheduleSummary();
+    renderCostSummaryByActivity();
+  }
 }
 function filterMembers(){ searchTerm=document.getElementById('memberSearch').value; renderMemberList(); }
-function selectAll(){ ALL_MEMBERS.forEach(m=>selectedMembers.add(m)); saveCookie(); renderMemberList(); renderSchedule(); }
-function clearAll(){ selectedMembers.clear(); saveCookie(); renderMemberList(); renderSchedule(); }
+function selectAll(){ ALL_MEMBERS.forEach(m=>selectedMembers.add(m)); saveCookie(); renderMemberList(); renderSchedule(); if (currentMainTab === 'summary') { renderFullScheduleSummary(); renderCostSummaryByActivity(); } }
+function clearAll(){ selectedMembers.clear(); saveCookie(); renderMemberList(); renderSchedule(); if (currentMainTab === 'summary') { renderFullScheduleSummary(); renderCostSummaryByActivity(); } }
 
 // ============================================================
 // DAY TABS
@@ -784,7 +1012,7 @@ function setDay(day){
 }
 
 // ============================================================
-// RENDER SLOTS FOR ONE DAY
+// RENDER SLOTS FOR ONE DAY (Planner Mode)
 // ============================================================
 function renderDaySlots(day){
   if(selectedMembers.size===0) return '';
@@ -797,7 +1025,6 @@ function renderDaySlots(day){
   if(!times.length) return '';
   return times.map(time=>{
     const slots=timeMap[time];
-    // กรองตาม activity filter
     let relSlots = slots.filter(s=>s.members.some(m=>selectedMembers.has(m)));
     if (activityFilter) {
       relSlots = relSlots.filter(s => s.act === activityFilter);
@@ -816,7 +1043,6 @@ function renderDaySlots(day){
       const thbVal = price > 0 ? price.toLocaleString('th-TH')+' ฿' : (tCount > 0 ? 'ฟรี' : '');
       const defTick=ACTIVITIES[s.act].defaultTick;
       
-      // แสดง hint ตามราคาพิเศษ
       let priceHint = '';
       if (SPECIAL_PRICES[s.act]) {
         priceHint = `${SPECIAL_PRICES[s.act].toLocaleString()}฿`;
@@ -846,7 +1072,7 @@ function renderDaySlots(day){
 }
 
 // ============================================================
-// MAIN RENDER
+// RENDER SCHEDULE (Planner Mode)
 // ============================================================
 function renderSchedule(){
   const content=document.getElementById('scheduleContent');
@@ -871,6 +1097,137 @@ function renderSchedule(){
     const s=renderDaySlots(currentDay);
     content.innerHTML=s||`<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรม${activityFilter ? 'ตามที่เลือก' : ''}</p></div>`;
   }
+}
+
+// ============================================================
+// RENDER FULL SCHEDULE SUMMARY (Summary Mode)
+// ============================================================
+function renderFullScheduleSummary() {
+  const container = document.getElementById('fullScheduleSummary');
+  if (selectedMembers.size === 0) {
+    container.innerHTML = `<div class="no-selection"><div class="big-icon">📋</div><p>เลือก Member เพื่อดูสรุปตารางเวลา</p></div>`;
+    return;
+  }
+
+  let html = '';
+  DAYS.forEach(day => {
+    // รวบรวมกิจกรรมตามเวลา
+    const timeMap = {};
+    (SCHEDULE[day] || []).forEach(s => {
+      if (s.members.some(m => selectedMembers.has(m))) {
+        if (!timeMap[s.time]) timeMap[s.time] = [];
+        timeMap[s.time].push(s);
+      }
+    });
+
+    const times = Object.keys(timeMap).sort();
+    if (times.length === 0) return;
+
+    html += `<div class="summary-activity-header">📅 ${DAY_LABELS[day]}</div>`;
+    
+    // สร้างตารางสรุป
+    html += `<table class="summary-time-table">`;
+    html += `<tr><th>เวลา</th><th>กิจกรรม</th><th>สมาชิก</th></tr>`;
+    
+    times.forEach(time => {
+      const slots = timeMap[time];
+      // รวมกิจกรรมในเวลาเดียวกัน
+      const activitiesHtml = slots.map(s => {
+        const act = ACTIVITIES[s.act];
+        const price = SPECIAL_PRICES[s.act] ? SPECIAL_PRICES[s.act] : (act.defaultTick > 0 ? act.defaultTick * TICKET_PRICE : 0);
+        const priceText = price > 0 ? ` (${price.toLocaleString()}฿)` : (act.defaultTick > 0 ? ` (${act.defaultTick}🎟️)` : ' (ฟรี)');
+        return `<span class="activity-tag ${act.cls}">${act.label}${priceText}</span>`;
+      }).join(' ');
+      
+      const membersHtml = slots.map(s => {
+        return s.members.filter(m => selectedMembers.has(m)).map(m => 
+          `<span class="summary-member-pill highlight">${m}</span>`
+        ).join('');
+      }).join(' ');
+      
+      html += `<tr>
+        <td class="time-col">${time}</td>
+        <td class="activity-col">${activitiesHtml}</td>
+        <td>${membersHtml}</td>
+      </tr>`;
+    });
+    
+    html += `</table>`;
+  });
+
+  if (html === '') {
+    html = `<div class="no-selection"><div class="big-icon">🔍</div><p>ไม่พบกิจกรรมสำหรับ member ที่เลือก</p></div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+// ============================================================
+// RENDER COST SUMMARY BY ACTIVITY (Summary Mode)
+// ============================================================
+function renderCostSummaryByActivity() {
+  const container = document.getElementById('costSummaryByActivity');
+  const totalTicketsEl = document.getElementById('totalTicketsDetail');
+  const totalCostEl = document.getElementById('totalCostAmount');
+
+  if (selectedMembers.size === 0 || Object.keys(tickets).length === 0) {
+    container.innerHTML = `<div class="no-selection"><div class="big-icon">💰</div><p>ยังไม่มี tickets ที่เลือก</p></div>`;
+    totalTicketsEl.textContent = '0 tickets';
+    totalCostEl.textContent = '0 ฿';
+    return;
+  }
+
+  // สรุปตามกิจกรรม
+  const activitySummary = {};
+  let totalCost = 0;
+  let totalTickets = 0;
+
+  Object.entries(tickets).forEach(([k, count]) => {
+    if (count === 0) return;
+    const [, , act] = k.split('|');
+    const actName = ACTIVITIES[act].label;
+    const actPrice = getActivityPrice(act, count);
+    const ticketCount = ACTIVITIES[act].defaultTick > 0 ? count * ACTIVITIES[act].defaultTick : count;
+    
+    if (!activitySummary[act]) {
+      activitySummary[act] = {
+        name: actName,
+        cls: ACTIVITIES[act].cls,
+        count: 0,
+        tickets: 0,
+        cost: 0
+      };
+    }
+    activitySummary[act].count += count;
+    activitySummary[act].tickets += ticketCount;
+    activitySummary[act].cost += actPrice;
+    totalCost += actPrice;
+    totalTickets += ticketCount;
+  });
+
+  let html = '';
+  Object.values(activitySummary).forEach(act => {
+    const pricePerUnit = act.cost / act.count;
+    html += `<div class="day-summary-card">
+      <div class="day-summary-header" style="padding:8px 12px;">
+        <span><span class="activity-tag ${act.cls}" style="font-size:12px;">${act.name}</span></span>
+        <div class="dsh-right">
+          <span style="color:var(--yellow); font-weight:700;">${act.cost.toLocaleString()} ฿</span>
+        </div>
+      </div>
+      <div style="padding:8px 12px; border-top:1px solid rgba(255,255,255,0.1);">
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:rgba(255,255,255,0.7);">
+          <span>จำนวน: ${act.count} ครั้ง</span>
+          <span>รวม ${act.tickets} tickets</span>
+          <span>เฉลี่ยครั้งละ ${(act.cost/act.count).toLocaleString()} ฿</span>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+  totalTicketsEl.textContent = `${totalTickets} tickets`;
+  totalCostEl.textContent = `${totalCost.toLocaleString()} ฿`;
 }
 
 // ============================================================
